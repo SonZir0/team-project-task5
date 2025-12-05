@@ -13,6 +13,13 @@ public class Main {
             \t6) Посчитать кол-во элементов с полем N
             \t-1) Выйти из программы""";
 
+    static private final String INPUT_STRATEGY_MENU_MESSAGE = """
+            Задать данные для работы через:
+            \t1) консоль
+            \t2) файл
+            \t3) случайную генерацию
+            \t0) назад""";
+
     static private final String DEFAULT_SWITCH_MESSAGE = "Такого варианта нет, попробуйте еще раз.\n";
 
     static private final String INPUT_TYPE_MISMATCH_MESSAGE = """
@@ -37,7 +44,29 @@ public class Main {
                     dummyFunction();
                     break;
                 case (2):
-                    dummyFunction();
+                    boolean subMenuExitFlag = false;
+                    while (!subMenuExitFlag) {
+                        System.out.println(INPUT_STRATEGY_MENU_MESSAGE);
+                        userInput = readNumberFromInput(scanner);
+                        if (userInput == null) continue;
+                        switch (userInput) {
+                            case (1):
+                                dummyFunction();
+                                break;
+                            case (2):
+                                dummyFunction();
+                                break;
+                            case (3):
+                                dummyFunction();
+                                break;
+                            case (0):
+                                subMenuExitFlag = true;
+                                break;
+                            default:
+                                System.out.println(DEFAULT_SWITCH_MESSAGE);
+                                break;
+                        }
+                    }
                     break;
                 case (3):
                     dummyFunction();
