@@ -5,11 +5,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        boolean exitFlag = false;
-        Integer userInput;
+        Integer userInput = 0;
         Scanner scanner = new Scanner(System.in);
 
-        while (!exitFlag) {
+        while (userInput == null || (userInput != -1)) {
             System.out.println(Messages.MAIN_MENU_MESSAGE.getMessage());
 
             userInput = readNumberFromInput(scanner);
@@ -20,8 +19,7 @@ public class Main {
                     dummyFunction();
                     break;
                 case (2):
-                    boolean subMenuExitFlag = false;
-                    while (!subMenuExitFlag) {
+                    while (userInput == null || (userInput != 0)) {
                         System.out.println(Messages.INPUT_STRATEGY_MENU_MESSAGE.getMessage());
                         userInput = readNumberFromInput(scanner);
                         if (userInput == null) continue;
@@ -36,7 +34,6 @@ public class Main {
                                 dummyFunction();
                                 break;
                             case (0):
-                                subMenuExitFlag = true;
                                 break;
                             default:
                                 System.out.println(Messages.DEFAULT_SWITCH_MESSAGE.getMessage());
@@ -57,7 +54,6 @@ public class Main {
                     dummyFunction();
                     break;
                 case (-1):
-                    exitFlag = true;
                     break;
                 default:
                     System.out.println(Messages.DEFAULT_SWITCH_MESSAGE.getMessage());
