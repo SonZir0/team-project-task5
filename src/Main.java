@@ -15,6 +15,11 @@ public class Main {
 
     static private final String DEFAULT_SWITCH_MESSAGE = "Такого варианта нет, попробуйте еще раз.\n";
 
+    static private final String INPUT_TYPE_MISMATCH_MESSAGE = """
+            Не корректный инпут.
+            Пожалуйста, введите целое число, соответствующее выбранному действию.
+            """;
+
     public static void main(String[] args) {
 
         boolean exitFlag = false;
@@ -24,15 +29,8 @@ public class Main {
         while (!exitFlag) {
             System.out.println(MENU_MESSAGE);
 
-            try {
-                userInput = scanner.nextInt();
-            } catch (InputMismatchException e) {
-                System.out.println("Не корректный инпут.\nПожалуйста, введите целое число, соответствующее выбранному действию.");
-                continue;
-            } finally {
-                // и Scanner, и InputMismatch оставляют символы, мешающие читать int. Поэтому "забираем" остаток инпута
-                scanner.nextLine();
-            }
+            userInput = readNumberFromInput(scanner);
+            if (userInput == null) continue;
 
             switch (userInput) {
                 case (1):
@@ -66,5 +64,17 @@ public class Main {
 
     static void dummyFunction() {
         System.out.println("Пока еще не сделано.\n");
+    }
+
+    static Integer readNumberFromInput(Scanner sc) {
+        try {
+            return sc.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println(INPUT_TYPE_MISMATCH_MESSAGE);
+            return null;
+        } finally {
+            // и Scanner, и InputMismatch оставляют символы, мешающие читать int. Поэтому "забираем" остаток инпута
+            sc.nextLine();
+        }
     }
 }
