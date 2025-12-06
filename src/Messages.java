@@ -21,6 +21,7 @@ public enum Messages {
             Пожалуйста, введите целое число, соответствующее выбранному действию."""),
 
     DEFAULT_SWITCH_MESSAGE("Такого варианта нет, попробуйте еще раз.\n"),
+    BUS_LIST_NEGATIVE_CAPACITY_ARG("Ошибка, вместимость коллекции не может быть отрицательной"),
     BUS_LIST_NULL_POINTER_EXCEPTION("Автобус не может быть null"),
     BUS_LIST_INDEX_OUT_OF_BOUNDS_MESSAGE("Запрашиваемый индекс выходит за фактический размер массива");
 

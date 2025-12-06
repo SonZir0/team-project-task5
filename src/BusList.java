@@ -17,6 +17,19 @@ public class BusList extends AbstractList<Bus> {
         data = temp;
     }
 
+    public void setSize(int newCapacity) {
+        if (newCapacity < 0)
+            throw new IllegalArgumentException(Messages.BUS_LIST_NEGATIVE_CAPACITY_ARG.getMessage());
+        if (capacity == newCapacity) return;
+
+        Bus[] temp = new Bus[newCapacity];
+        capacity = newCapacity;
+        size = Math.min(size, capacity);
+
+        System.arraycopy(data, 0, temp, 0, size);
+        data = temp;
+    }
+
     @Override
     public boolean add(Bus obj) {
         Objects.requireNonNull(obj, Messages.BUS_LIST_NULL_POINTER_EXCEPTION.getMessage());
