@@ -10,10 +10,12 @@ public class BusList extends AbstractList<Bus> {
     private Bus[] data = new Bus[INITIAL_CAPACITY];
 
 
-    public void resize() {
-        capacity = (int) (capacity * 1.5);
+    private void resize() {
+        if (capacity == 0)  capacity = 1;
+        else capacity = capacity << 1;
         Bus[] temp = new Bus[capacity];
-        System.arraycopy(data, 0, temp, 0, data.length);
+
+        System.arraycopy(data, 0, temp, 0, size);
         data = temp;
     }
 
