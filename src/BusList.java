@@ -39,4 +39,10 @@ public class BusList extends AbstractList<String> {
     public int size() {
         return this.size;
     }
+
+    @Override
+    public void clear() {
+        Arrays.fill(data, null);
+        size = 0;
+    }
 }
