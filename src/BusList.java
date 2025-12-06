@@ -1,4 +1,7 @@
 import java.util.AbstractList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 public class BusList extends AbstractList<String> {
 
@@ -16,17 +19,20 @@ public class BusList extends AbstractList<String> {
     }
 
     @Override
-    public boolean add(String s) {
+    public boolean add(String obj) {
+        Objects.requireNonNull(obj, Messages.BUS_LIST_NULL_POINTER_EXCEPTION.getMessage());
         if (size + 1 > capacity) resize();
 
-        data[size] = s;
+        data[size] = obj;
         size++;
         return true;
     }
 
     @Override
     public String get(int index) {
-            return data[index];
+        if (index < 0 || index >= size)
+            throw new IndexOutOfBoundsException(Messages.BUS_LIST_INDEX_OUT_OF_BOUNDS_MESSAGE.getMessage());
+        return data[index];
     }
 
     @Override
