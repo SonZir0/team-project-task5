@@ -44,4 +44,15 @@ public class BusList extends AbstractList<Bus> {
         Arrays.fill(data, null);
         size = 0;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("Size: %d\tCapacity %d\n", size, capacity));
+        for (int i = 0; i < size; i++) {
+            sb.append(data[i].toString())
+                    .append("\n");
+        }
+        return sb.toString();
+    }
 }
