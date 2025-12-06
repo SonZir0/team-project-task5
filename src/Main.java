@@ -5,25 +5,29 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Integer userInput = 0;
+        BusList busList = new BusList();
+        Integer menuUserInput = 0;
         Scanner scanner = new Scanner(System.in);
 
-        while (userInput == null || (userInput != -1)) {
+        while (menuUserInput == null || (menuUserInput != -1)) {
             System.out.println(Messages.MAIN_MENU_MESSAGE.getMessage());
 
-            userInput = readNumberFromInput(scanner);
-            if (userInput == null) continue;
+            menuUserInput = readNumberFromInput(scanner);
+            if (menuUserInput == null) continue;
 
-            switch (userInput) {
+            switch (menuUserInput) {
                 case (1):
-                    dummyFunction();
+                    System.out.print(Messages.SET_COLLECTION_SIZE_MESSAGE.getMessage());
+                    Integer argFromInput = readNumberFromInput(scanner);
+                    if (argFromInput != null)
+                        busList.setSize(argFromInput);
                     break;
                 case (2):
-                    while (userInput == null || (userInput != 0)) {
+                    while (menuUserInput == null || (menuUserInput != 0)) {
                         System.out.println(Messages.INPUT_STRATEGY_MENU_MESSAGE.getMessage());
-                        userInput = readNumberFromInput(scanner);
-                        if (userInput == null) continue;
-                        switch (userInput) {
+                        menuUserInput = readNumberFromInput(scanner);
+                        if (menuUserInput == null) continue;
+                        switch (menuUserInput) {
                             case (1):
                                 dummyFunction();
                                 break;
