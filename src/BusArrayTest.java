@@ -1,4 +1,4 @@
-package Tests;
+
 import Bus;
 import java.util.*;
 public class BusArrayTest implements Testable {
@@ -67,4 +67,5 @@ public class BusArrayTest implements Testable {
         }
     }
 }
+
 
