@@ -1,5 +1,5 @@
 package Tests;
-import model.Bus;
+import Bus;
 import java.util.*;
 public class BusArrayTest implements Testable {
     @Override
@@ -67,3 +67,4 @@ public class BusArrayTest implements Testable {
         }
     }
 }
+
