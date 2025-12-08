@@ -4,12 +4,6 @@ import java.util.List;
 import model.Bus;
 
 public class BusFileSaver {
-    /**
-     * Сохраняет список автобусов в текстовый файл (формат: номер,модель,пробег).
-     * @param buses     список автобусов для сохранения
-     * @param filename  имя файла (с путём, если нужно)
-     * @throws IOException при ошибке записи
-     */
     public static void saveToFile(List<Bus> buses, String filename) throws IOException {
         // Проверка входных данных
         if (buses == null) {
@@ -31,3 +25,4 @@ public class BusFileSaver {
         }
     }
 }
+
