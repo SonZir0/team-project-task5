@@ -13,19 +13,13 @@ public class InputValidator {
             try {
                 numFromString = Integer.parseInt(userInput.trim());
                 return true;
-            } catch (NumberFormatException e) {
-                System.out.println("Не корректный ввод. Пожалуйста, введите -ЦЕЛОЕ ЧИСЛО-");
-            }
+            } catch (NumberFormatException _) {}
         }
         return false;
     }
 
     public static boolean isPositiveInteger(String userInput) {
-        if (isInteger(userInput)) {
-            if (numFromString >= 0) return true;
-            System.out.println("Не корректный ввод. Пожалуйста, введите целое -ПОЛОЖИТЕЛЬНОЕ- число");
-        }
-        return false;
+        return (isInteger(userInput) && (numFromString >= 0));
     }
 
     public static Integer getNumFromString() {

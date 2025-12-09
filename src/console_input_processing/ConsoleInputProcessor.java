@@ -8,7 +8,7 @@ public class ConsoleInputProcessor {
 
     private static final BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 
-    public static String getString() {
+    public static String getNonEmptyString() {
         String temp;
         while (true) {
             try {
@@ -29,6 +29,7 @@ public class ConsoleInputProcessor {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+            System.out.println("Не корректный ввод. Пожалуйста, введите -ЦЕЛОЕ ЧИСЛО-");
         }
     }
 
@@ -40,6 +41,7 @@ public class ConsoleInputProcessor {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+            System.out.println("Не корректный ввод. Пожалуйста, введите -ЦЕЛОЕ ПОЛОЖИТЕЛЬНОЕ ЧИСЛО-");
         }
     }
 
@@ -49,5 +51,5 @@ public class ConsoleInputProcessor {
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
         }
-    };
+    }
 }
