@@ -1,7 +1,6 @@
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
-import model.Bus;
 
 public class BusFileSaver {
     public static void saveToFile(List<Bus> buses, String filename) throws IOException {
