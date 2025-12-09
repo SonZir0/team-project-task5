@@ -2,10 +2,13 @@ package console_input_processing;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class ConsoleInputProcessor {
 
-    public static String getString(BufferedReader bf) {
+    private static final BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
+    public static String getString() {
         String temp;
         while (true) {
             try {
@@ -18,7 +21,7 @@ public class ConsoleInputProcessor {
         }
     }
 
-    public static Integer getInteger(BufferedReader bf) {
+    public static Integer getInteger() {
         while (true) {
             try {
                 if (InputValidator.isInteger(bf.readLine()))
@@ -29,7 +32,7 @@ public class ConsoleInputProcessor {
         }
     }
 
-    public static Integer getPositiveInteger(BufferedReader bf) {
+    public static Integer getPositiveInteger() {
         while (true) {
             try {
                 if (InputValidator.isPositiveInteger(bf.readLine()))
@@ -39,4 +42,12 @@ public class ConsoleInputProcessor {
             }
         }
     }
+
+    public void close() {
+        try {
+            bf.close();
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    };
 }
