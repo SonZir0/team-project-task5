@@ -45,7 +45,7 @@ public class ConsoleInputProcessor {
         }
     }
 
-    public void close() {
+    public static void close() {
         try {
             bf.close();
         } catch (IOException e) {
