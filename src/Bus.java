@@ -1,4 +1,6 @@
-public class Bus {
+import java.util.Objects;
+
+public class Bus implements Comparable<Bus> {
     private final String number;
     private final String model;
     private final int mileage;
@@ -54,5 +56,23 @@ public class Bus {
     public String toString() {
         return String.format("Bus{number='%s', model='%s', mileage=%d}", 
                 number, model, mileage);
+    }
+
+    @Override
+    public int compareTo(Bus secondBus) {
+        if (this == secondBus) return 0;
+
+        int temp = this.number.compareTo(secondBus.getNumber());
+        if (temp != 0) return temp;
+
+        temp = this.model.compareTo(secondBus.getModel());
+        if (temp != 0) return temp;
+
+        return Integer.compare(this.mileage, secondBus.getMileage());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.number, this.model, this.mileage);
     }
 }
