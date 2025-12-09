@@ -4,6 +4,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * Класс для получения инпута через консоль.
+ * Все методы выполняются в цикле до тех пор, пока не будет получен валидный результат.
+ * При не корректном инпуте со стороны пользователя, все методы выводят сообщение о типе ожидаемых входных данных.
+ * Как будет не нужен, не забудьте вызвать метод close().
+ */
 public class ConsoleInputProcessor {
 
     private static final BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
