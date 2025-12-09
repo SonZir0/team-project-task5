@@ -50,6 +50,13 @@ public class BusList extends AbstractList<Bus> {
     }
 
     @Override
+    public Bus set(int index, Bus bus) {
+        Bus oldValue = data[index];
+        data[index] = bus;
+        return oldValue;
+    }
+
+    @Override
     public int size() {
         return this.size;
     }
