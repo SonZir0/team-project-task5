@@ -1,7 +1,7 @@
 public class MergeSort implements Testable{
 
     public void mergeSort(BusList originalList) {
-        if (originalList == null) throw new NullPointerException("Ошибка: вместо листа для сортировки получили null");
+        if (originalList == null) throw new NullPointerException(Messages.NULL_REFERENCE_AS_ARGUMENT.getMessage());
         if (originalList.size() < 2)
             return;
 
