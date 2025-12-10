@@ -2,6 +2,7 @@ import java.util.ArrayDeque;
 
 public class SortEvenFieldOnly implements Testable {
     public void sort(BusList originalList) {
+        if (originalList == null) throw new NullPointerException(Messages.NULL_REFERENCE_AS_ARGUMENT.getMessage());
         MergeSort ms = new MergeSort();
         BusList evenValSubList = new BusList();
         ArrayDeque<Integer> indicesToReplace = new ArrayDeque<>();
