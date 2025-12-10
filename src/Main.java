@@ -5,6 +5,7 @@ public class Main {
     public static void main(String[] args) {
 
         BusList busList = new BusList();
+        MergeSort ms = new MergeSort();
         Integer menuUserInput = 0;
 
         while (menuUserInput != -1) {
@@ -39,7 +40,7 @@ public class Main {
                     }
                     break;
                 case (3):
-                    dummyFunction();
+                    ms.mergeSort(busList);
                     break;
                 case (4):
                     dummyFunction();
