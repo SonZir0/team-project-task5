@@ -2,7 +2,7 @@ package ;
 
 import model.Bus;
 import java.io.*;
-import java.util.List;
+import java.util.BusList;
 //готов к добавлению в main
 public class BusFileSaver {
     /**
@@ -11,7 +11,7 @@ public class BusFileSaver {
      * @param filename имя файла
      * @return true, если сохранение успешно
      */
-    public boolean appendToFile(List<Bus> buses, String filename) throws IOException {
+    public boolean appendToFile(BusList<Bus> buses, String filename) throws IOException {
         try (FileWriter fw = new FileWriter(filename, true);
              BufferedWriter bw = new BufferedWriter(fw)) {
 
@@ -26,6 +26,7 @@ public class BusFileSaver {
         }
     }
 }
+
 
 
 
