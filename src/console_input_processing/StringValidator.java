@@ -16,4 +16,26 @@ public class StringValidator {
     public static boolean isInteger(String userInput) {
         return userInput != null && intRegEx.matcher(userInput).matches();
     }
+
+    public static void runAllTests() {
+        System.out.println("Запускаем тесты в классе InputValidator:");
+        System.out.println("\tТест валидатора непустой строку: " + Tests.testIsNonEmptyString());
+        System.out.println("\tТест валидатора интеджеров: " + Tests.testIsInteger());
+    }
+
+    static class Tests {
+        static boolean testIsNonEmptyString() {
+            return !isNonEmptySting(null) &&
+                    !isNonEmptySting("") &&
+                    isNonEmptySting("  a  ");
+        }
+
+        static boolean testIsInteger() {
+            return !isInteger("    ") &&
+                    !isInteger("-12-12") &&
+                    !isInteger("abc") &&
+                    isInteger("  +5\n") &&
+                    isInteger("-12");
+        }
+    }
 }
