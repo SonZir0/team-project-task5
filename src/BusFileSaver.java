@@ -1,29 +1,31 @@
-import java.io.FileWriter;
-import java.io.IOException;
+package ;
+
+import model.Bus;
+import java.io.*;
 import java.util.List;
 
 public class BusFileSaver {
-    public static void saveToFile(List<Bus> buses, String filename) throws IOException {
-        // Проверка входных данных
-        if (buses == null) {
-            throw new IllegalArgumentException("Список автобусов не может быть null");
-        }
-        if (filename == null || filename.trim().isEmpty()) {
-            throw new IllegalArgumentException("Имя файла не может быть пустым");
-        }
+    /**
+     * Сохраняет коллекцию автобусов в файл в режиме добавления
+     * @param buses список автобусов
+     * @param filename имя файла
+     * @return true, если сохранение успешно
+     */
+    public boolean appendToFile(List<Bus> buses, String filename) throws IOException {
+        try (FileWriter fw = new FileWriter(filename, true);
+             BufferedWriter bw = new BufferedWriter(fw)) {
 
-        try (FileWriter writer = new FileWriter(filename)) {
             for (Bus bus : buses) {
-                 writer.write(String.format("%d,%s,%.1f\n",
-                        bus.getNumber(), bus.getModel(), bus.getMileage()));
+                bw.write(bus.toString());
+                bw.newLine();
             }
-
-            System.out.printf("Сохранено %d записей в файл: %s%n", buses.size(), filename);
+            return true;
         } catch (IOException e) {
-            System.err.printf("Ошибка при записи в файл %s: %s%n", filename, e.getMessage());
-            throw e;
+            System.err.println("Ошибка при записи в файл: " + e.getMessage());
+            return false;
         }
     }
 }
+
 
 
