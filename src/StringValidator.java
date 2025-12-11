@@ -1,4 +1,3 @@
-package console_input_processing;
 import java.util.regex.Pattern;
 
 /**

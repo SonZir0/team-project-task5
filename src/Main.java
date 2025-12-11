@@ -1,5 +1,3 @@
-import console_input_processing.ConsoleInputProcessor;
-
 public class Main {
 
     public static void main(String[] args) {
