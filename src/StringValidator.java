@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
  */
 public class StringValidator {
 
-    static Pattern intRegEx = Pattern.compile("^\\s*([+-]?[1-9]\\d*|0)\\s*$");
+    static Pattern intRegEx = Pattern.compile("^\\s*([+-]?[1-9]\\d*|[+-]?0)\\s*$");
 
     public static boolean isNonEmptySting(String userInput) {
         return userInput != null && !userInput.isBlank();
@@ -34,6 +34,8 @@ public class StringValidator {
                     !isInteger("-12-12") &&
                     !isInteger("abc") &&
                     isInteger("  +5\n") &&
+                    isInteger("\t  -0\n") &&
+                    !isInteger("+001") &&
                     isInteger("-12");
         }
     }
