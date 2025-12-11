@@ -1,57 +1,71 @@
 package console_input_processing;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.InputStream;
+import java.io.IOException;
+import java.util.Optional;
 
 /**
  * Класс для получения инпута через консоль.
- * Все методы выполняются в цикле до тех пор, пока не будет получен валидный результат.
- * При не корректном инпуте со стороны пользователя, все методы выводят сообщение о типе ожидаемых входных данных.
- * Как будет не нужен, не забудьте вызвать метод close().
+ * Публичные методы getXXX выполняются в цикле до тех пор, пока не будет получен валидный результат.
+ * При не корректном инпуте со стороны пользователя, все методы должны выводить сообщение о типе ожидаемого инпута.
+ * По завершению работы требуется вызвать close().
  */
 public class ConsoleInputProcessor {
 
-    private static final BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+    private final BufferedReader bf;
 
-    public static String getNonEmptyString() {
-        String temp;
+    public ConsoleInputProcessor() {
+        this.bf = new BufferedReader(new InputStreamReader(System.in));
+    }
+
+    public ConsoleInputProcessor(InputStream inputStream) {
+        this.bf = new BufferedReader(new InputStreamReader(inputStream));
+    }
+
+    public String getNonEmptyString() {
         while (true) {
-            try {
-                temp = bf.readLine();
-                if (InputValidator.isNonEmptySting(temp))
-                    return temp.trim();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            String tempStr = getInput();
+            if (StringValidator.isNonEmptySting(tempStr))
+                return tempStr.trim();
         }
     }
 
-    public static Integer getInteger() {
+    public Integer getInteger() {
         while (true) {
-            try {
-                if (InputValidator.isInteger(bf.readLine()))
-                    return InputValidator.getNumFromString();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            Optional<Integer> temp = tryToGetInteger();
+            if (temp.isPresent())
+                return temp.get();
             System.out.println("Не корректный ввод. Пожалуйста, введите -ЦЕЛОЕ ЧИСЛО-");
         }
     }
 
-    public static Integer getPositiveInteger() {
+    public Integer getPositiveInteger() {
         while (true) {
-            try {
-                if (InputValidator.isPositiveInteger(bf.readLine()))
-                    return InputValidator.getNumFromString();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            Optional<Integer> temp = tryToGetInteger();
+            if (temp.isPresent() && temp.get() > 0)
+                return temp.get();
             System.out.println("Не корректный ввод. Пожалуйста, введите -ЦЕЛОЕ ПОЛОЖИТЕЛЬНОЕ ЧИСЛО-");
         }
     }
 
-    public static void close() {
+    private String getInput() {
+        try {
+            return bf.readLine();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Optional<Integer> tryToGetInteger() {
+        String tempStr = getNonEmptyString();
+        if (StringValidator.isInteger(tempStr))
+            return Optional.of(Integer.parseInt(tempStr));
+        return Optional.empty();
+    }
+
+    public void close() {
         try {
             bf.close();
         } catch (IOException e) {
