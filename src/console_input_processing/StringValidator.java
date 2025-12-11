@@ -14,6 +14,6 @@ public class StringValidator {
     }
 
     public static boolean isInteger(String userInput) {
-        return intRegEx.matcher(userInput).matches();
+        return userInput != null && intRegEx.matcher(userInput).matches();
     }
 }
