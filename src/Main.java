@@ -28,6 +28,11 @@ public class Main {
                                 break;
                             case (2):
                                 dummyFunction();
+                                DataGetter dataGetter = new DataGetter(new GetDataFromFile());
+                                System.out.println("Вызов метода getOneObject:");
+                                dataGetter.getOneObject();
+                                System.out.println(" Вызов метода getNObjects");
+                                dataGetter.getNObjects(3);
                                 break;
                             case (3):
                                 dummyFunction();
