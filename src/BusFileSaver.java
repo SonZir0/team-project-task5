@@ -14,7 +14,8 @@ public class BusFileSaver {
 
         try (FileWriter writer = new FileWriter(filename)) {
             for (Bus bus : buses) {
-
+                 writer.write(String.format("%d,%s,%.1f\n",
+                        bus.getNumber(), bus.getModel(), bus.getMileage()));
             }
 
             System.out.printf("Сохранено %d записей в файл: %s%n", buses.size(), filename);
@@ -24,4 +25,5 @@ public class BusFileSaver {
         }
     }
 }
+
 
