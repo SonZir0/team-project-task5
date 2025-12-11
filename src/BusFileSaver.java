@@ -3,7 +3,7 @@ package ;
 import model.Bus;
 import java.io.*;
 import java.util.List;
-
+//готов к добавлению в main
 public class BusFileSaver {
     /**
      * Сохраняет коллекцию автобусов в файл в режиме добавления
@@ -26,6 +26,7 @@ public class BusFileSaver {
         }
     }
 }
+
 
 
 
