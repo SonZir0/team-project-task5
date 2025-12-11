@@ -1,5 +1,3 @@
-import console_input_processing.ConsoleInputProcessor;
-
 public class Main {
 
     public static void main(String[] args) {
@@ -7,21 +5,22 @@ public class Main {
         BusList busList = new BusList();
         MergeSort mergeSort = new MergeSort();
         SortEvenFieldOnly sortEvenObj = new SortEvenFieldOnly();
+        ConsoleInputProcessor inputProcessor = new ConsoleInputProcessor();
         Integer menuUserInput = 0;
 
         while (menuUserInput != -1) {
             System.out.println(Messages.MAIN_MENU_MESSAGE.getMessage());
-            menuUserInput = ConsoleInputProcessor.getInteger();
+            menuUserInput = inputProcessor.getInteger();
 
             switch (menuUserInput) {
                 case (1):
                     System.out.print(Messages.SET_COLLECTION_SIZE_MESSAGE.getMessage());
-                    busList.setSize( ConsoleInputProcessor.getPositiveInteger() );
+                    busList.setSize( inputProcessor.getPositiveInteger() );
                     break;
                 case (2):
                     while (menuUserInput != 0) {
                         System.out.println(Messages.INPUT_STRATEGY_MENU_MESSAGE.getMessage());
-                        menuUserInput = ConsoleInputProcessor.getInteger();
+                        menuUserInput = inputProcessor.getInteger();
                         switch (menuUserInput) {
                             case (1):
                                 dummyFunction();
@@ -64,7 +63,7 @@ public class Main {
                     break;
             }
         }
-        ConsoleInputProcessor.close();
+        inputProcessor.close();
     }
 
     static void dummyFunction() {
