@@ -1,4 +1,6 @@
+import java.util.List;
+
 public interface GetData {
      Bus getOneObject();
-     BusList getNObjects(int N);
+     List<Bus> getNObjects(int N);
 }

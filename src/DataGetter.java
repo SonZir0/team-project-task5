@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class DataGetter {
     private GetData getData;
 
@@ -14,7 +16,7 @@ public class DataGetter {
         return getData.getOneObject();
     }
 
-    BusList getNObjects(int N){
+    List<Bus> getNObjects(int N){
         return getData.getNObjects(N);
     }
 }
