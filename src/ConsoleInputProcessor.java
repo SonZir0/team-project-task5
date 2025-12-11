@@ -39,9 +39,9 @@ public class ConsoleInputProcessor implements Testable {
     public Integer getPositiveInteger() {
         while (true) {
             Optional<Integer> temp = tryToGetInteger();
-            if (temp.isPresent() && temp.get() > 0)
+            if (temp.isPresent() && temp.get() >= 0)
                 return temp.get();
-            System.out.println("Не корректный ввод. Пожалуйста, введите -ЦЕЛОЕ ПОЛОЖИТЕЛЬНОЕ ЧИСЛО-");
+            System.out.println("Не корректный ввод. Пожалуйста, введите -ЦЕЛОЕ НЕОТРИЦАТЕЛЬНОЕ ЧИСЛО-");
         }
     }
 
