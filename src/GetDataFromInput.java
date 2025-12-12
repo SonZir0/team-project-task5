@@ -9,28 +9,39 @@ public class GetDataFromInput implements GetData {
         this.inputProcessor = inputProcessor;
     }
 
-    private String getStringInput(String msgToDisplay) {
-        System.out.print(msgToDisplay);
+    private String getStringInput() {
         return inputProcessor.getNonEmptyString();
     }
 
     private Integer getMileageInput() {
-        System.out.print("Введите пробег автобуса: ");
         return inputProcessor.getPositiveInteger();
     }
 
     @Override
     public Bus getOneObject() {
-        return new Bus.Builder()
-                .setNumber(getStringInput("\nВведите номер автобуса: "))
-                .setModel(getStringInput("Введите модель автобуса: "))
-                .setMileage(getMileageInput())
+        return getOneObject(false);
+    }
+
+    public Bus getOneObject(boolean isSilent) {
+        if (!isSilent)
+            System.out.print("\nВведите номер автобуса: ");
+        Bus.Builder temp = new Bus.Builder().setNumber(getStringInput());
+        if (!isSilent)
+            System.out.print("Введите модель автобуса: ");
+        temp.setModel(getStringInput());
+        if (!isSilent)
+            System.out.print("Введите пробег автобуса: ");
+        return temp.setMileage(getMileageInput())
                 .build();
     }
 
     @Override
     public List<Bus> getNObjects(int N) {
-        return Stream.generate(this::getOneObject)
+        return getNObjects(N, false);
+    }
+
+    public List<Bus> getNObjects(int N, boolean isSilent) {
+        return Stream.generate(() -> getOneObject(isSilent))
                 .limit(N)
                 .collect(Collectors.toList());
     }
