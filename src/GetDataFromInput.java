@@ -1,8 +1,10 @@
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class GetDataFromInput implements GetData {
+public class GetDataFromInput implements GetData, Testable {
     public final ConsoleInputProcessor inputProcessor;
 
     public GetDataFromInput(ConsoleInputProcessor inputProcessor) {
@@ -44,5 +46,77 @@ public class GetDataFromInput implements GetData {
         return Stream.generate(() -> getOneObject(isSilent))
                 .limit(N)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void runAllTests() {
+        System.out.println("Запускаем тесты в классе GetDataFromInput:");
+        System.out.println("\tТест получения одного объекта: " + GetDataFromInput.Tests.testOutputObject());
+        System.out.println("\tТест получения листа из N элементов: " + GetDataFromInput.Tests.testOutputList());
+        System.out.println("\tТест получения пустого листа при N = 0: " + GetDataFromInput.Tests.testNIsZero());
+
+    }
+
+    static class Tests {
+        static boolean testOutputObject() {
+            // testData имеет строки оканчивающиеся на пробелы. Все что находится до /s является частью строки
+            String testData = """
+                    517K
+                    \t    RF-102-\t
+                    +1000
+                    Success?""";
+            InputStream is = new ByteArrayInputStream(testData.getBytes());
+            try (ConsoleInputProcessor cip = new ConsoleInputProcessor(is)) {
+                GetDataFromInput dataFromInput = new GetDataFromInput(cip);
+                Bus temp = dataFromInput.getOneObject(true);
+                return temp.getNumber().equals("517K") &&
+                        temp.getModel().equals("RF-102-") &&
+                        temp.getMileage() == 1000;
+            }
+        }
+
+        static boolean testOutputList() {
+            String testData = """
+                    517K
+                    \t    RF-102-\t
+                    +1000
+                    
+                    Mileage?
+                    is it tasty?
+                    -0
+                    
+                    12491
+                    00000
+                    +0
+                    
+                    qwerty
+                    15
+                    51
+                    Success?""";
+            InputStream is = new ByteArrayInputStream(testData.getBytes());
+            try (ConsoleInputProcessor cip = new ConsoleInputProcessor(is)) {
+                GetDataFromInput dataFromInput = new GetDataFromInput(cip);
+                List<Bus> temp = dataFromInput.getNObjects(4, true);
+                // все идущие подряд пустые строки будут пропущены за один вызов
+                return temp.size() == 4 &&
+                        temp.get(1).getNumber().equals("Mileage?") &&
+                        temp.get(2).getModel().equals("00000") &&
+                        temp.getLast().getMileage() == 51;
+            }
+        }
+
+        static boolean testNIsZero() {
+            String testData = """
+                    517K
+                    \t    RF-102-\t
+                    +1000
+                    Success?""";
+            InputStream is = new ByteArrayInputStream(testData.getBytes());
+            try (ConsoleInputProcessor cip = new ConsoleInputProcessor(is)) {
+                GetDataFromInput dataFromInput = new GetDataFromInput(cip);
+                List<Bus> temp = dataFromInput.getNObjects(0, true);
+                return temp.isEmpty();
+            }
+        }
     }
 }
