@@ -1,10 +1,7 @@
 public class Main {
 
     public static void main(String[] args) {
-
         BusList busList = new BusList();
-        MergeSort mergeSort = new MergeSort();
-        SortEvenFieldOnly sortEvenObj = new SortEvenFieldOnly();
         ConsoleInputProcessor inputProcessor = new ConsoleInputProcessor();
         Integer menuUserInput = 0;
 
@@ -45,10 +42,10 @@ public class Main {
                     }
                     break;
                 case (3):
-                    mergeSort.mergeSort(busList);
+                    MergeSort.mergeSort(busList);
                     break;
                 case (4):
-                    sortEvenObj.sort(busList);
+                    SortEvenFieldOnly.sort(busList);
                     break;
                 case (5):
                     dummyFunction();

@@ -1,6 +1,6 @@
-public class MergeSort implements Testable{
+public class MergeSort {
 
-    public void mergeSort(BusList originalList) {
+    public static void mergeSort(BusList originalList) {
         if (originalList == null) throw new NullPointerException(Messages.NULL_REFERENCE_AS_ARGUMENT.getMessage());
         if (originalList.size() < 2)
             return;
@@ -20,7 +20,7 @@ public class MergeSort implements Testable{
         merge(leftList,rightList,originalList);
     }
 
-    private void merge(BusList leftList, BusList rightList, BusList originalList) {
+    private static void merge(BusList leftList, BusList rightList, BusList originalList) {
         int leftIndex = 0;
         int rightIndex = 0;
         int originalIndex = 0;
@@ -49,7 +49,7 @@ public class MergeSort implements Testable{
         }
     }
 
-    public void runAllTests() {
+    public static void runAllTests() {
         System.out.println("Запускаем тесты в классе MergeSort:");
         System.out.println("\tТест правильности сортировки: " + Tests.testSorting());
         System.out.println("\tТест стабильности сортировки: " + Tests.testStability());
@@ -58,7 +58,6 @@ public class MergeSort implements Testable{
     static class Tests {
 
         static boolean testSorting() {
-            MergeSort ms = new MergeSort();
             BusList testList = new BusList();
             // Объекты Bus создаются в отсортированном порядке. В коллекцию они будут занесены по другому
             Bus testBus1 = new Bus.Builder()
@@ -97,7 +96,7 @@ public class MergeSort implements Testable{
             testList.add(testBus3);
             testList.add(testBus1);
             testList.add(testBus5);
-            ms.mergeSort(testList);
+            mergeSort(testList);
             for (int i = 0; i < testList.size() - 1; i++)
                 if ( testList.get(i).compareTo(testList.get(i + 1)) > 0)
                     return false;
@@ -105,7 +104,6 @@ public class MergeSort implements Testable{
         }
 
         static boolean testStability() {
-            MergeSort ms = new MergeSort();
             BusList testList = new BusList();
             // Объекты Bus создаются в отсортированном порядке. В коллекцию они будут занесены по другому
             // Объекты № 3,4,5 создаются с одинаковыми параметрами. Проверяем сохранность порядка вставки в лист
@@ -145,7 +143,7 @@ public class MergeSort implements Testable{
             testList.add(testBus3);
             testList.add(testBus1);
             testList.add(testBus5);
-            ms.mergeSort(testList);
+            mergeSort(testList);
             // добавляемые в BusList объекты копируются поверхностно, поэтому определяем правильность по ссылке на объект
             return (testBus4 == testList.get(2) &&
                     testBus3 == testList.get(3) &&

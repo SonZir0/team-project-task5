@@ -1,9 +1,8 @@
 import java.util.ArrayDeque;
 
-public class SortEvenFieldOnly implements Testable {
-    public void sort(BusList originalList) {
+public class SortEvenFieldOnly {
+    public static void sort(BusList originalList) {
         if (originalList == null) throw new NullPointerException(Messages.NULL_REFERENCE_AS_ARGUMENT.getMessage());
-        MergeSort ms = new MergeSort();
         BusList evenValSubList = new BusList();
         ArrayDeque<Integer> indicesToReplace = new ArrayDeque<>();
 
@@ -13,13 +12,12 @@ public class SortEvenFieldOnly implements Testable {
                 indicesToReplace.add(i);
             }
 
-        ms.mergeSort(evenValSubList);
+        MergeSort.mergeSort(evenValSubList);
         for (Bus bus : evenValSubList)
             originalList.set(indicesToReplace.pollFirst(), bus);
     }
 
-    @Override
-    public void runAllTests() {
+    public static void runAllTests() {
         System.out.println("\nЗапускаем тесты в классе SortEvenFieldOnly:");
         System.out.println("\tТест неизменности позиций элементов с нечетными полями: " + SortEvenFieldOnly.Tests.testOddElemPos());
     }
@@ -27,7 +25,6 @@ public class SortEvenFieldOnly implements Testable {
     static class Tests {
         static boolean testOddElemPos() {
             BusList testList = new BusList();
-            SortEvenFieldOnly evenFieldSort = new SortEvenFieldOnly();
             // Объекты Bus создаются в уже отсортированном порядке. В коллекцию они будут занесены по другому
             Bus testBus1 = new Bus.Builder()
                     .setNumber("1")
@@ -65,7 +62,7 @@ public class SortEvenFieldOnly implements Testable {
             testList.add(testBus3);
             testList.add(testBus1);
             testList.add(testBus7);
-            evenFieldSort.sort(testList);
+            sort(testList);
             // проверяем позиции элементов с нечетными полями, т.к правильность MergeSort проверяется в тестах MergeSort
             return testBus7 == testList.get(6) &&
                     testBus4 == testList.get(3);
