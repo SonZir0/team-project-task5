@@ -7,7 +7,7 @@ import java.util.Optional;
  * При не корректном инпуте со стороны пользователя, все методы должны выводить сообщение о типе ожидаемого инпута.
  * По завершению работы требуется вызвать close().
  */
-public class ConsoleInputProcessor implements Testable {
+public class ConsoleInputProcessor implements Testable, AutoCloseable {
 
     private final BufferedReader bf;
 
@@ -64,11 +64,11 @@ public class ConsoleInputProcessor implements Testable {
         try {
             bf.close();
         } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
+            throw new RuntimeException("Не удалось закрыть BufferedReader в ConsoleInputProcessor");
         }
     }
     @Override
-    public  void runAllTests() {
+    public void runAllTests() {
         System.out.println("Запускаем тесты в классе ConsoleInputProcessor:");
         System.out.println("\tТест метода получения непустой строки: " + ConsoleInputProcessor.Tests.testGetNonNullString());
         System.out.println("\tТест метода получения целого числа: " + ConsoleInputProcessor.Tests.testTryToGetInteger());
@@ -85,10 +85,11 @@ public class ConsoleInputProcessor implements Testable {
                     
                     Success?""";
             InputStream is = new ByteArrayInputStream(testData.getBytes());
-            ConsoleInputProcessor cip = new ConsoleInputProcessor(is);
-            // читаем первую "обрезанную" от нечитаемых символов непустую строку
-            return cip.getNonEmptyString().equals("12") &&
-                    cip.getNonEmptyString().equals("Success?");
+            try (ConsoleInputProcessor cip = new ConsoleInputProcessor(is)) {
+                // должны получить непустые строки без нечитаемых симолов
+                return cip.getNonEmptyString().equals("12") &&
+                        cip.getNonEmptyString().equals("Success?");
+            }
         }
 
         /* Т.к. getInteger и getPositiveInteger выводят сообщения об ожидаемом инпуте в консоль (при тестах это
@@ -107,17 +108,18 @@ public class ConsoleInputProcessor implements Testable {
                         \t    -20  \s
                     Success?""";
             InputStream is = new ByteArrayInputStream(testData.getBytes());
-            ConsoleInputProcessor cip = new ConsoleInputProcessor(is);
-            // Обращаю внимание, что все идущие подряд пустые строки будут "забраны" из потока за один вызов
-            return cip.tryToGetInteger().isEmpty() &&
-                    cip.tryToGetInteger().get() == 12 &&
-                    cip.tryToGetInteger().isEmpty() &&
-                    cip.tryToGetInteger().isEmpty() &&
-                    cip.tryToGetInteger().isEmpty() &&
-                    cip.tryToGetInteger().isEmpty() &&
-                    cip.tryToGetInteger().isEmpty() &&
-                    cip.tryToGetInteger().get() == -20 &&
-                    cip.tryToGetInteger().isEmpty();
+            try (ConsoleInputProcessor cip = new ConsoleInputProcessor(is)) {
+                // все идущие подряд пустые строки будут пропущены за один вызов
+                return cip.tryToGetInteger().isEmpty() &&
+                        cip.tryToGetInteger().get() == 12 &&
+                        cip.tryToGetInteger().isEmpty() &&
+                        cip.tryToGetInteger().isEmpty() &&
+                        cip.tryToGetInteger().isEmpty() &&
+                        cip.tryToGetInteger().isEmpty() &&
+                        cip.tryToGetInteger().isEmpty() &&
+                        cip.tryToGetInteger().get() == -20 &&
+                        cip.tryToGetInteger().isEmpty();
+            }
         }
     }
 }
