@@ -21,7 +21,7 @@ public class BusList extends AbstractList<Bus> {
 
     public void setSize(int newCapacity) {
         if (newCapacity < 0)
-            throw new IllegalArgumentException(Messages.BUS_LIST_NEGATIVE_CAPACITY_ARG.getMessage());
+            throw new IllegalArgumentException("Ошибка, вместимость коллекции не может быть отрицательной");
         if (capacity == newCapacity) return;
 
         Bus[] temp = new Bus[newCapacity];
@@ -34,7 +34,7 @@ public class BusList extends AbstractList<Bus> {
 
     @Override
     public boolean add(Bus obj) {
-        Objects.requireNonNull(obj, Messages.BUS_LIST_NULL_POINTER_EXCEPTION.getMessage());
+        Objects.requireNonNull(obj, "Добавляемый в автопарк автобус не может быть 'null'");
         if (size + 1 > capacity) resize();
 
         data[size] = obj;
@@ -45,7 +45,7 @@ public class BusList extends AbstractList<Bus> {
     @Override
     public Bus get(int index) {
         if (index < 0 || index >= size)
-            throw new IndexOutOfBoundsException(Messages.BUS_LIST_INDEX_OUT_OF_BOUNDS_MESSAGE.getMessage());
+            throw new IndexOutOfBoundsException("Запрашиваемый индекс выходит за фактический размер массива");
         return data[index];
     }
 

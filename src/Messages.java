@@ -16,15 +16,7 @@ public enum Messages {
             \t3) случайную генерацию
             \t0) назад"""),
 
-    INPUT_TYPE_MISMATCH_MESSAGE("""
-            Не корректный инпут.
-            Пожалуйста, введите целое число, соответствующее выбранному действию."""),
-
-    SET_COLLECTION_SIZE_MESSAGE("Размер коллекции: "),
     DEFAULT_SWITCH_MESSAGE("Такого варианта нет, попробуйте еще раз.\n"),
-    BUS_LIST_NEGATIVE_CAPACITY_ARG("Ошибка, вместимость коллекции не может быть отрицательной"),
-    BUS_LIST_NULL_POINTER_EXCEPTION("Автобус не может быть null"),
-    BUS_LIST_INDEX_OUT_OF_BOUNDS_MESSAGE("Запрашиваемый индекс выходит за фактический размер массива"),
     NULL_REFERENCE_AS_ARGUMENT("Ошибка: вместо листа для сортировки получили null");
 
     private final String message;

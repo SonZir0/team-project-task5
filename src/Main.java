@@ -11,7 +11,7 @@ public class Main {
 
             switch (menuUserInput) {
                 case (1):
-                    System.out.print(Messages.SET_COLLECTION_SIZE_MESSAGE.getMessage());
+                    System.out.print("Размер коллекции: ");
                     busList.setSize( inputProcessor.getPositiveInteger() );
                     break;
                 case (2):
