@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 
 
 public class GetDataFromFile implements GetData {
-    private String filePath = "D:\\Aston\\park.txt";
+    private String filePath = "resources\\park.txt";
 
     @Override
     public Bus getOneObject() {
