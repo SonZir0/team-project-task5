@@ -1,6 +1,6 @@
-import java.util.List;
+import java.util.Optional;
 
 public interface GetData {
-     Bus getOneObject();
-     List<Bus> getNObjects(int N);
+     Optional<Bus> getOneObject();
+     Optional<BusList> getNObjects(int N);
 }

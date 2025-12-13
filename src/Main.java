@@ -86,11 +86,15 @@ public class Main {
             System.out.println(Messages.SET_DATA_MENU_MESSAGE.getMessage());
             switch (inputProcessor.getInteger()) {
                 case (1):
-                    busList.add(dataGetter.getOneObject());
+                    dataGetter.getOneObject()
+                            .ifPresentOrElse((obj) -> busList.add(obj),
+                            () -> System.err.println("Не удалось получить элемент из указанного источника. Отмена"));
                     return;
                 case (2):
                     System.out.print("Введите количество элементов(N): ");
-                    busList.addAll(dataGetter.getNObjects(inputProcessor.getPositiveInteger()));
+                    dataGetter.getNObjects(inputProcessor.getPositiveInteger())
+                            .ifPresentOrElse((objList) -> busList.addAll(objList),
+                            () -> System.err.println("Не удалось получить коллекцию из указанного источника. Отмена"));
                     return;
                 case (0):
                     return;

@@ -1,4 +1,4 @@
-import java.util.List;
+import java.util.Optional;
 
 public class DataGetter {
     private GetData getData;
@@ -12,11 +12,11 @@ public class DataGetter {
         this.getData = getData;
     }
 
-    Bus getOneObject(){
+    Optional<Bus> getOneObject(){
         return getData.getOneObject();
     }
 
-    List<Bus> getNObjects(int N){
+    Optional<BusList> getNObjects(int N){
         return getData.getNObjects(N);
     }
 }
