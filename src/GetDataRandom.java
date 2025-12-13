@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 public class GetDataRandom implements GetData{
@@ -26,20 +25,19 @@ public class GetDataRandom implements GetData{
     }
 
     @Override
-    public Bus getOneObject() {
-        return new Bus.Builder()
+    public Optional<Bus> getOneObject() {
+        return Optional.of(new Bus.Builder()
                 .setNumber(randomNumber())
                 .setModel(randomModel())
                 .setMileage(randomMileage())
-                .build();
+                .build());
     }
 
     @Override
-    public List<Bus> getNObjects(int N) {
-        List<Bus> list = new ArrayList<>();
-        for (int i = 0; i < N; i++) {
-            list.add(getOneObject());
-        }
-        return list;
+    public Optional<BusList> getNObjects(int N) {
+        BusList list = new BusList();
+        for (int i = 0; i < N; i++)
+            getOneObject().ifPresent(list::add);
+        return Optional.of(list);
     }
 }

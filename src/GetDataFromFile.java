@@ -1,7 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -10,33 +10,29 @@ public class GetDataFromFile implements GetData {
     private String filePath = "resources\\park.txt";
 
     @Override
-    public Bus getOneObject() {
-        Bus bus=null;
+    public Optional<Bus> getOneObject() {
+        Bus bus = null;
         try(BufferedReader br = new BufferedReader(new FileReader(filePath))){
             bus = readBus(br);
-            System.out.println(bus);
-
         } catch (IOException e){
             e.printStackTrace();
         }
-        return bus;
+        return Optional.ofNullable(bus);
     }
 
     @Override
-    public List<Bus> getNObjects(int N) {
-        List<Bus> park=null;
+    public Optional<BusList> getNObjects(int N) {
+        BusList park = null;
         try(BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             park = Stream.generate(() -> readBus(br))
                     .takeWhile(bus -> bus != null) // Остановить поток, когда bus равен null
                     .limit(N) // Ограничиваем количество записей до n
-                    .collect(Collectors.toList());
+                    .collect(Collectors.toCollection(BusList::new));
 
-            // Выводим результат
-            park.forEach(System.out::println);
         }catch(IOException e){
             e.printStackTrace();
         }
-        return park;
+        return Optional.ofNullable(park);
     }
 
 
@@ -58,12 +54,11 @@ public class GetDataFromFile implements GetData {
                 System.err.println("Некорректное значение пробега: " + parts[2]);
                 return null; // Пропуск строки с неверным форматом
             }
-            Bus bus=new Bus.Builder()
+            return new Bus.Builder()
                     .setModel(model)
                     .setNumber(number)
                     .setMileage(mileage)
                     .build();
-            return  bus;
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -82,6 +77,5 @@ public class GetDataFromFile implements GetData {
     private static boolean isValidFormat(String[] parts) {
         return parts.length == 3; // Проверка на количество элементов в строке (модель, номер, пробег = 3)
     }
-
 }
 

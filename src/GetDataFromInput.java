@@ -1,6 +1,6 @@
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -20,11 +20,11 @@ public class GetDataFromInput implements GetData, Testable {
     }
 
     @Override
-    public Bus getOneObject() {
+    public Optional<Bus> getOneObject() {
         return getOneObject(false);
     }
 
-    public Bus getOneObject(boolean isSilent) {
+    public Optional<Bus> getOneObject(boolean isSilent) {
         if (!isSilent)
             System.out.print("\nВведите номер автобуса: ");
         Bus.Builder temp = new Bus.Builder().setNumber(getStringInput());
@@ -33,19 +33,19 @@ public class GetDataFromInput implements GetData, Testable {
         temp.setModel(getStringInput());
         if (!isSilent)
             System.out.print("Введите пробег автобуса: ");
-        return temp.setMileage(getMileageInput())
-                .build();
+        return Optional.of(temp.setMileage(getMileageInput())
+                .build());
     }
 
     @Override
-    public List<Bus> getNObjects(int N) {
+    public Optional<BusList> getNObjects(int N) {
         return getNObjects(N, false);
     }
 
-    public List<Bus> getNObjects(int N, boolean isSilent) {
-        return Stream.generate(() -> getOneObject(isSilent))
+    public Optional<BusList> getNObjects(int N, boolean isSilent) {
+        return Optional.of( Stream.generate(() -> getOneObject(isSilent).get())
                 .limit(N)
-                .collect(Collectors.toList());
+                .collect(Collectors.toCollection(BusList::new)));
     }
 
     @Override
@@ -68,7 +68,7 @@ public class GetDataFromInput implements GetData, Testable {
             InputStream is = new ByteArrayInputStream(testData.getBytes());
             try (ConsoleInputProcessor cip = new ConsoleInputProcessor(is)) {
                 GetDataFromInput dataFromInput = new GetDataFromInput(cip);
-                Bus temp = dataFromInput.getOneObject(true);
+                Bus temp = dataFromInput.getOneObject(true).get();
                 return temp.getNumber().equals("517K") &&
                         temp.getModel().equals("RF-102-") &&
                         temp.getMileage() == 1000;
@@ -96,7 +96,7 @@ public class GetDataFromInput implements GetData, Testable {
             InputStream is = new ByteArrayInputStream(testData.getBytes());
             try (ConsoleInputProcessor cip = new ConsoleInputProcessor(is)) {
                 GetDataFromInput dataFromInput = new GetDataFromInput(cip);
-                List<Bus> temp = dataFromInput.getNObjects(4, true);
+                BusList temp = dataFromInput.getNObjects(4, true).get();
                 // все идущие подряд пустые строки будут пропущены за один вызов
                 return temp.size() == 4 &&
                         temp.get(1).getNumber().equals("Mileage?") &&
@@ -114,7 +114,7 @@ public class GetDataFromInput implements GetData, Testable {
             InputStream is = new ByteArrayInputStream(testData.getBytes());
             try (ConsoleInputProcessor cip = new ConsoleInputProcessor(is)) {
                 GetDataFromInput dataFromInput = new GetDataFromInput(cip);
-                List<Bus> temp = dataFromInput.getNObjects(0, true);
+                BusList temp = dataFromInput.getNObjects(0, true).get();
                 return temp.isEmpty();
             }
         }
