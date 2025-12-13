@@ -70,7 +70,7 @@ public class Main {
 //                    dataGetter.getNObjects(3);
                     break;
                 case (3):
-                    dummyFunction();
+                    setDataMenu(new DataGetter(new GetDataRandom()));
                     break;
                 case (0):
                     return;
