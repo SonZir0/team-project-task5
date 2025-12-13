@@ -1,6 +1,4 @@
-import java.util.AbstractList;
-import java.util.Arrays;
-import java.util.Objects;
+import java.util.*;
 
 public class BusList extends AbstractList<Bus> {
 
@@ -35,10 +33,22 @@ public class BusList extends AbstractList<Bus> {
     @Override
     public boolean add(Bus obj) {
         Objects.requireNonNull(obj, "Добавляемый в автопарк автобус не может быть 'null'");
-        if (size + 1 > capacity) resize();
-
+        if (size == capacity) resize();
         data[size] = obj;
         size++;
+        return true;
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends Bus> collection) {
+        if (collection.isEmpty()) return false;
+
+        Bus[] objArr = collection.toArray(new Bus[0]);
+        if (objArr.length > this.capacity - this.size)
+            this.setSize((int)Math.ceil((this.size + objArr.length) * 1.5));
+
+        System.arraycopy(objArr, 0, this.data, this.size, objArr.length);
+        this.size += objArr.length;
         return true;
     }
 
