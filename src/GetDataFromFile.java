@@ -7,7 +7,11 @@ import java.util.stream.Stream;
 
 
 public class GetDataFromFile implements GetData {
-    private String filePath = "resources\\park.txt";
+    private String filePath;
+
+    GetDataFromFile(String filePath) {
+        this.filePath = filePath;
+    }
 
     @Override
     public Optional<Bus> getOneObject() {

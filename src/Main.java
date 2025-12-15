@@ -1,3 +1,6 @@
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.function.Consumer;
 
 public class Main {
@@ -28,16 +31,14 @@ public class Main {
                     if (busList.isEmpty())  System.out.println(Messages.COLLECTION_IS_EMPTY.getMessage());
                     else {
                         MergeSort.mergeSort(busList);
-                        System.out.println("Результат сортировки по 3-м полям:");
-                        System.out.println(busList);
+                        System.out.println("Результат сортировки по 3-м полям:\n" + busList);
                     }
                     break;
                 case (5):
                     if (busList.isEmpty())  System.out.println(Messages.COLLECTION_IS_EMPTY.getMessage());
                     else {
                         SortEvenFieldOnly.sort(busList);
-                        System.out.println("Результат сортировки элементов с четными полям:");
-                        System.out.println(busList);
+                        System.out.println("Результат сортировки элементов с четными полям:\n" + busList);
                     }
                     break;
                 case (6):
@@ -64,7 +65,7 @@ public class Main {
                     setDataMenu(new DataGetter(new GetDataFromInput(inputProcessor)));
                     break;
                 case (2):
-                    setDataMenu(new DataGetter(new GetDataFromFile()));
+                    chooseFileToLoad();
                     break;
                 case (3):
                     setDataMenu(new DataGetter(new GetDataRandom()));
@@ -76,6 +77,41 @@ public class Main {
                     break;
             }
         }
+    }
+
+    private static void chooseFileToLoad() {
+        while (true) {
+            System.out.println(Messages.CHOOSE_FILE_TO_LOAD_MENU_MESSAGE.getMessage());
+            switch (inputProcessor.getInteger()) {
+                case (1):
+                    if (invokeSetDataMenuIfFileExists("resources\\correctFile.txt"))
+                        return;
+                    break;
+                case (2):
+                    if (invokeSetDataMenuIfFileExists("resources\\incorrectFile.txt"))
+                        return;
+                    break;
+                case (3):
+                    if (invokeSetDataMenuIfFileExists("resources\\savedCollection.txt"))
+                        return;
+                    break;
+                case (0):
+                    return;
+                default:
+                    System.out.println(Messages.DEFAULT_SWITCH_MESSAGE.getMessage());
+                    break;
+            }
+        }
+    }
+
+    private static boolean invokeSetDataMenuIfFileExists(String filePathAsString) {
+        Path filePath = Paths.get(filePathAsString);
+        if (Files.exists(filePath) && Files.isRegularFile(filePath)) {
+            setDataMenu(new DataGetter(new GetDataFromFile(filePathAsString)));
+            return true;
+        }
+        System.out.println("Выбранный файл не существует!");
+        return false;
     }
 
     private static void setDataMenu(DataGetter dataGetter) {
@@ -104,7 +140,7 @@ public class Main {
         }
     }
 
-    static void checkSizeAndConfirm(BusList resultList, int N, Consumer<BusList> action) {
+    private static void checkSizeAndConfirm(BusList resultList, int N, Consumer<BusList> action) {
         System.out.println("Полученная в результате работы коллекция:\n" + resultList);
         while (true) {
             if (resultList.size() < N)

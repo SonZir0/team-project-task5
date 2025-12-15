@@ -15,13 +15,20 @@ public enum Messages {
             \t1) консоль
             \t2) файл
             \t3) случайную генерацию
-            \t0) назад"""),
+            \t0) Назад"""),
 
     SET_DATA_MENU_MESSAGE("""
             Выберите действие:
             \t1) добавить один элемент в текущую коллекцию
             \t2) добавить N элементов в текущую коллекцию
-            \t0) назад"""),
+            \t0) Отмена"""),
+
+    CHOOSE_FILE_TO_LOAD_MENU_MESSAGE("""
+            Выберите файл для загрузки:
+            \t1) resources/correctFile.txt
+            \t2) resources/incorrectFile.txt
+            \t3) resources/savedCollection.txt
+            \t0) Назад"""),
 
     CONFIRM_ACTION_MESSAGE("""
             Полученная коллекция распечатана выше. Продолжить действие с коллекцией?
