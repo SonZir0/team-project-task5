@@ -16,7 +16,7 @@ public class GetDataFromInput implements GetData, Testable {
     }
 
     private Integer getMileageInput() {
-        return inputProcessor.getPositiveInteger();
+        return inputProcessor.getNonNegativeInteger();
     }
 
     @Override

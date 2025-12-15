@@ -36,12 +36,20 @@ public class ConsoleInputProcessor implements Testable, AutoCloseable {
         }
     }
 
+    public Integer getNonNegativeInteger() {
+        return getIntGreaterThanN(-1, "Не корректный ввод. Пожалуйста, введите -ЦЕЛОЕ НЕОТРИЦАТЕЛЬНОЕ ЧИСЛО-\n");
+    }
+
     public Integer getPositiveInteger() {
+        return getIntGreaterThanN(0, "Не корректный ввод. Пожалуйста, введите -ЦЕЛОЕ ПОЛОЖИТЕЛЬНОЕ ЧИСЛО-\n");
+    }
+
+    public Integer getIntGreaterThanN(int N, String messageOnIncorrectInput) {
         while (true) {
             Optional<Integer> temp = tryToGetInteger();
-            if (temp.isPresent() && temp.get() >= 0)
+            if (temp.isPresent() && temp.get() > N)
                 return temp.get();
-            System.out.println("Не корректный ввод. Пожалуйста, введите -ЦЕЛОЕ НЕОТРИЦАТЕЛЬНОЕ ЧИСЛО-");
+            System.out.print(messageOnIncorrectInput);
         }
     }
 
@@ -72,6 +80,7 @@ public class ConsoleInputProcessor implements Testable, AutoCloseable {
         System.out.println("Запускаем тесты в классе ConsoleInputProcessor:");
         System.out.println("\tТест метода получения непустой строки: " + ConsoleInputProcessor.Tests.testGetNonNullString());
         System.out.println("\tТест метода получения целого числа: " + ConsoleInputProcessor.Tests.testTryToGetInteger());
+        System.out.println("\tТест метода получения целого числа больше N: " + ConsoleInputProcessor.Tests.testGetIntGreaterThanN());
     }
 
     static class Tests {
@@ -92,8 +101,7 @@ public class ConsoleInputProcessor implements Testable, AutoCloseable {
             }
         }
 
-        /* Т.к. getInteger и getPositiveInteger выводят сообщения об ожидаемом инпуте в консоль (при тестах это
-        * не надо), то тестестировать будем метод, на который они полагаются - tryToGetInteger()     */
+        // Т.к. getInteger и getIntGreaterThanN полагаются в своей работе на tryToGetInteger() его и будем тестировать
         static boolean testTryToGetInteger() {
             // testData имеет строки оканчивающиеся на пробелы. Все что находится до /s является частью строки
             String testData = """
@@ -119,6 +127,28 @@ public class ConsoleInputProcessor implements Testable, AutoCloseable {
                         cip.tryToGetInteger().isEmpty() &&
                         cip.tryToGetInteger().get() == -20 &&
                         cip.tryToGetInteger().isEmpty();
+            }
+        }
+
+        static boolean testGetIntGreaterThanN() {
+            // testData имеет строки оканчивающиеся на пробелы. Все что находится до /s является частью строки
+            String testData = """
+                    \t\t  \t
+                    Test3
+                    \t\t+12\t\t
+                    -3-3
+                    ++9
+                    82-
+                    101.213
+                    Something
+                        \t    -20  \s
+                    100
+                    101
+                    Success?""";
+            InputStream is = new ByteArrayInputStream(testData.getBytes());
+            try (ConsoleInputProcessor cip = new ConsoleInputProcessor(is)) {
+                // все идущие подряд пустые строки будут пропущены за один вызов
+                return cip.getIntGreaterThanN(100, "") == 101;
             }
         }
     }
