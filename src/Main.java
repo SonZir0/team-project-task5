@@ -1,3 +1,8 @@
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.function.Consumer;
+
 public class Main {
 
     static BusList busList;
@@ -26,16 +31,14 @@ public class Main {
                     if (busList.isEmpty())  System.out.println(Messages.COLLECTION_IS_EMPTY.getMessage());
                     else {
                         MergeSort.mergeSort(busList);
-                        System.out.println("Результат сортировки по 3-м полям:");
-                        System.out.println(busList);
+                        System.out.println("Результат сортировки по 3-м полям:\n" + busList);
                     }
                     break;
                 case (5):
                     if (busList.isEmpty())  System.out.println(Messages.COLLECTION_IS_EMPTY.getMessage());
                     else {
                         SortEvenFieldOnly.sort(busList);
-                        System.out.println("Результат сортировки элементов с четными полям:");
-                        System.out.println(busList);
+                        System.out.println("Результат сортировки элементов с четными полям:\n" + busList);
                     }
                     break;
                 case (6):
@@ -62,12 +65,7 @@ public class Main {
                     setDataMenu(new DataGetter(new GetDataFromInput(inputProcessor)));
                     break;
                 case (2):
-                    dummyFunction();
-//                    dataGetter = new DataGetter(new GetDataFromFile());
-//                    System.out.println("Результат работы getOneObject");
-//                    dataGetter.getOneObject();
-//                    System.out.println("Результат работы getNObjects");
-//                    dataGetter.getNObjects(3);
+                    chooseFileToLoad();
                     break;
                 case (3):
                     setDataMenu(new DataGetter(new GetDataRandom()));
@@ -81,22 +79,79 @@ public class Main {
         }
     }
 
+    private static void chooseFileToLoad() {
+        while (true) {
+            System.out.println(Messages.CHOOSE_FILE_TO_LOAD_MENU_MESSAGE.getMessage());
+            switch (inputProcessor.getInteger()) {
+                case (1):
+                    if (invokeSetDataMenuIfFileExists("resources\\correctFile.txt"))
+                        return;
+                    break;
+                case (2):
+                    if (invokeSetDataMenuIfFileExists("resources\\incorrectFile.txt"))
+                        return;
+                    break;
+                case (3):
+                    if (invokeSetDataMenuIfFileExists("resources\\savedCollection.txt"))
+                        return;
+                    break;
+                case (0):
+                    return;
+                default:
+                    System.out.println(Messages.DEFAULT_SWITCH_MESSAGE.getMessage());
+                    break;
+            }
+        }
+    }
+
+    private static boolean invokeSetDataMenuIfFileExists(String filePathAsString) {
+        Path filePath = Paths.get(filePathAsString);
+        if (Files.exists(filePath) && Files.isRegularFile(filePath)) {
+            setDataMenu(new DataGetter(new GetDataFromFile(filePathAsString)));
+            return true;
+        }
+        System.out.println("Выбранный файл не существует!");
+        return false;
+    }
+
     private static void setDataMenu(DataGetter dataGetter) {
         while (true) {
             System.out.println(Messages.SET_DATA_MENU_MESSAGE.getMessage());
             switch (inputProcessor.getInteger()) {
                 case (1):
-                    dataGetter.getOneObject()
-                            .ifPresentOrElse((obj) -> busList.add(obj),
-                            () -> System.err.println("Не удалось получить элемент из указанного источника. Отмена"));
+                    dataGetter.getOneObject().ifPresentOrElse(
+                            (obj) -> busList.add(obj),
+                            () -> System.err.println(Messages.GET_DATA_NULL_RESULT.getMessage()));
                     return;
                 case (2):
                     System.out.print("Введите количество элементов(N): ");
-                    dataGetter.getNObjects(inputProcessor.getPositiveInteger())
-                            .ifPresentOrElse((objList) -> busList.addAll(objList),
-                            () -> System.err.println("Не удалось получить коллекцию из указанного источника. Отмена"));
+                    int N = inputProcessor.getPositiveInteger();
+                    dataGetter.getNObjects(N).ifPresentOrElse(
+                            (resultList) ->
+                                    checkSizeAndConfirm(resultList, N, (list) -> busList.addAll(list)),
+                            () -> System.err.println(Messages.GET_DATA_NULL_RESULT.getMessage()));
                     return;
                 case (0):
+                    return;
+                default:
+                    System.out.println(Messages.DEFAULT_SWITCH_MESSAGE.getMessage());
+                    break;
+            }
+        }
+    }
+
+    private static void checkSizeAndConfirm(BusList resultList, int N, Consumer<BusList> action) {
+        System.out.println("Полученная в результате работы коллекция:\n" + resultList);
+        while (true) {
+            if (resultList.size() < N)
+                System.out.println(Messages.CAUTION_POSSIBLE_ERROR_MESSAGE.getMessage());
+            System.out.println(Messages.CONFIRM_ACTION_MESSAGE.getMessage());
+            switch (inputProcessor.getInteger()) {
+                case (1):
+                    action.accept(resultList);  // выполнить данное действие
+                    return;
+                case (2):
+                    System.out.println("Отмена...");
                     return;
                 default:
                     System.out.println(Messages.DEFAULT_SWITCH_MESSAGE.getMessage());

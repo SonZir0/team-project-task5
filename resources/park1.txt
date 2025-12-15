@@ -1,7 +1,0 @@
-model1 number1 111111
-model2 number2 222222 uyuyuy
-model3 number3 333333PQ
-model4 number4 44444
-model5 number5 55555
-model6 number6 66666
-model7 number7 77777

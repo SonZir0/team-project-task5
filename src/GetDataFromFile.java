@@ -7,7 +7,11 @@ import java.util.stream.Stream;
 
 
 public class GetDataFromFile implements GetData {
-    private String filePath = "resources\\park.txt";
+    private String filePath;
+
+    GetDataFromFile(String filePath) {
+        this.filePath = filePath;
+    }
 
     @Override
     public Optional<Bus> getOneObject() {
@@ -43,7 +47,7 @@ public class GetDataFromFile implements GetData {
 
             String[] parts = line.split(" ");
             if (!isValidFormat(parts)) {
-                System.err.println("Неверный формат строки: " + line);
+                System.out.println("Неверный формат строки: " + line);
                 return null; // Пропуск строки с неверным форматом
             }
 
@@ -51,7 +55,7 @@ public class GetDataFromFile implements GetData {
             String number = parts[1].trim();
             int mileage = parseMileage(parts[2].trim());
             if (mileage<0) {
-                System.err.println("Некорректное значение пробега: " + parts[2]);
+                System.out.println("Некорректное значение пробега: " + parts[2]);
                 return null; // Пропуск строки с неверным форматом
             }
             return new Bus.Builder()
