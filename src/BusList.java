@@ -55,12 +55,14 @@ public class BusList extends AbstractList<Bus> {
     @Override
     public Bus get(int index) {
         if (index < 0 || index >= size)
-            throw new IndexOutOfBoundsException("Запрашиваемый индекс выходит за фактический размер массива");
+            throw new IndexOutOfBoundsException(Messages.BUS_LIST_OUT_OF_BOUNDS.getMessage());
         return data[index];
     }
 
     @Override
     public Bus set(int index, Bus bus) {
+        if (index < 0 || index >= size)
+            throw new IndexOutOfBoundsException(Messages.BUS_LIST_OUT_OF_BOUNDS.getMessage());
         Bus oldValue = data[index];
         data[index] = bus;
         return oldValue;
