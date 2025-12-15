@@ -5,7 +5,7 @@ public class BusCounter {
 
         if (list == null) throw new IllegalArgumentException("list is null");
         if (threads <= 0) throw new IllegalArgumentException("threads must be > 0");
-        if (list.size() == 0) return 0;
+        if (list.isEmpty()) return 0;
 
         int size = list.size();
         int realThreads = Math.min(threads, size);

@@ -50,7 +50,7 @@ public class Main {
                     } else {
                         try {
                             System.out.print("Введите пробег N: ");
-                            int mileage = inputProcessor.getPositiveInteger();
+                            int mileage = inputProcessor.getNonNegativeInteger();
 
                             System.out.print("Введите количество потоков: ");
                             int threads = inputProcessor.getPositiveInteger();
