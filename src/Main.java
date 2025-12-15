@@ -196,8 +196,4 @@ public class Main {
             }
         }
     }
-
-    static void dummyFunction() {
-        System.out.println("Пока еще не сделано.\n");
-    }
 }
