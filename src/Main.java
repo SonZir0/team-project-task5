@@ -80,13 +80,13 @@ public class Main {
             System.out.println(Messages.INPUT_STRATEGY_MENU_MESSAGE.getMessage());
             switch (inputProcessor.getInteger()) {
                 case (1):
-                    setDataMenu(new DataGetter(new GetDataFromInput(inputProcessor)));
+                    setDataMenu(new GetDataFromInput(inputProcessor));
                     break;
                 case (2):
                     chooseFileToLoad();
                     break;
                 case (3):
-                    setDataMenu(new DataGetter(new GetDataRandom()));
+                    setDataMenu(new GetDataRandom());
                     break;
                 case (0):
                     return;
@@ -125,14 +125,14 @@ public class Main {
     private static boolean invokeSetDataMenuIfFileExists(String filePathAsString) {
         Path filePath = Paths.get(filePathAsString);
         if (Files.exists(filePath) && Files.isRegularFile(filePath)) {
-            setDataMenu(new DataGetter(new GetDataFromFile(filePathAsString)));
+            setDataMenu(new GetDataFromFile(filePathAsString));
             return true;
         }
         System.out.println("Выбранный файл не существует!");
         return false;
     }
 
-    private static void setDataMenu(DataGetter dataGetter) {
+    private static void setDataMenu(GetData dataGetter) {
         while (true) {
             System.out.println(Messages.SET_DATA_MENU_MESSAGE.getMessage());
             switch (inputProcessor.getInteger()) {
