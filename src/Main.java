@@ -42,7 +42,7 @@ public class Main {
                     }
                     break;
                 case (6):
-                    dummyFunction();
+                    saveMenu(buses);;
                     break;
                 case (7):
                     dummyFunction();
@@ -159,7 +159,11 @@ public class Main {
             }
         }
     }
-
+private static void saveMenu(List<Bus> buses) throws IOException {
+        System.out.print("Имя файла: ");
+        BusFileSaver.appendToFile(buses, scanner.next());
+        System.out.println("Сохранено!");
+}
     static void dummyFunction() {
         System.out.println("Пока еще не сделано.\n");
     }
