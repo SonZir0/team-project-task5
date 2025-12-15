@@ -45,14 +45,14 @@ public class GetDataFromFile implements GetData {
             String line = br.readLine();
             if (line == null) return null; // Если  конец файла
 
-            String[] parts = line.split(" ");
+            String[] parts = line.split(",");
             if (!isValidFormat(parts)) {
                 System.out.println("Неверный формат строки: " + line);
                 return null; // Пропуск строки с неверным форматом
             }
 
-            String model = parts[0].trim();
-            String number = parts[1].trim();
+            String number = parts[0].trim();
+            String model = parts[1].trim();
             int mileage = parseMileage(parts[2].trim());
             if (mileage<0) {
                 System.out.println("Некорректное значение пробега: " + parts[2]);
