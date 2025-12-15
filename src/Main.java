@@ -1,3 +1,5 @@
+import java.util.function.Consumer;
+
 public class Main {
 
     static BusList busList;
@@ -62,12 +64,7 @@ public class Main {
                     setDataMenu(new DataGetter(new GetDataFromInput(inputProcessor)));
                     break;
                 case (2):
-                    dummyFunction();
-//                    dataGetter = new DataGetter(new GetDataFromFile());
-//                    System.out.println("Результат работы getOneObject");
-//                    dataGetter.getOneObject();
-//                    System.out.println("Результат работы getNObjects");
-//                    dataGetter.getNObjects(3);
+                    setDataMenu(new DataGetter(new GetDataFromFile()));
                     break;
                 case (3):
                     setDataMenu(new DataGetter(new GetDataRandom()));
@@ -86,17 +83,39 @@ public class Main {
             System.out.println(Messages.SET_DATA_MENU_MESSAGE.getMessage());
             switch (inputProcessor.getInteger()) {
                 case (1):
-                    dataGetter.getOneObject()
-                            .ifPresentOrElse((obj) -> busList.add(obj),
-                            () -> System.err.println("Не удалось получить элемент из указанного источника. Отмена"));
+                    dataGetter.getOneObject().ifPresentOrElse(
+                            (obj) -> busList.add(obj),
+                            () -> System.err.println(Messages.GET_DATA_NULL_RESULT.getMessage()));
                     return;
                 case (2):
                     System.out.print("Введите количество элементов(N): ");
-                    dataGetter.getNObjects(inputProcessor.getPositiveInteger())
-                            .ifPresentOrElse((objList) -> busList.addAll(objList),
-                            () -> System.err.println("Не удалось получить коллекцию из указанного источника. Отмена"));
+                    int N = inputProcessor.getPositiveInteger();
+                    dataGetter.getNObjects(N).ifPresentOrElse(
+                            (resultList) ->
+                                    checkSizeAndConfirm(resultList, N, (list) -> busList.addAll(list)),
+                            () -> System.err.println(Messages.GET_DATA_NULL_RESULT.getMessage()));
                     return;
                 case (0):
+                    return;
+                default:
+                    System.out.println(Messages.DEFAULT_SWITCH_MESSAGE.getMessage());
+                    break;
+            }
+        }
+    }
+
+    static void checkSizeAndConfirm(BusList resultList, int N, Consumer<BusList> action) {
+        System.out.println("Полученная в результате работы коллекция:\n" + resultList);
+        while (true) {
+            if (resultList.size() < N)
+                System.out.println(Messages.CAUTION_POSSIBLE_ERROR_MESSAGE.getMessage());
+            System.out.println(Messages.CONFIRM_ACTION_MESSAGE.getMessage());
+            switch (inputProcessor.getInteger()) {
+                case (1):
+                    action.accept(resultList);  // выполнить данное действие
+                    return;
+                case (2):
+                    System.out.println("Отмена...");
                     return;
                 default:
                     System.out.println(Messages.DEFAULT_SWITCH_MESSAGE.getMessage());
