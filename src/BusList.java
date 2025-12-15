@@ -82,10 +82,13 @@ public class BusList extends AbstractList<Bus> {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        StringBuilder innerSB = new StringBuilder();
         sb.append(String.format("Size: %d\tCapacity %d\n", size, capacity));
         for (int i = 0; i < size; i++) {
-            sb.append(data[i].toString())
+            sb.append(String.format("%6s  ", innerSB.append(i+1).append(".")))
+                    .append(data[i].toString())
                     .append("\n");
+            innerSB.setLength(0);
         }
         return sb.toString();
     }
