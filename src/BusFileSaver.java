@@ -12,14 +12,12 @@ public class BusFileSaver {
      * @return true, если сохранение успешно
      */
     public boolean appendToFile(List<Bus> buses, String filename) throws IOException {
-        try (FileWriter fw = new FileWriter(filename, true);
-             BufferedWriter bw = new BufferedWriter(fw)) {
-
+       try (BufferedWriter writer = new BufferedWriter(
+                (new FileWriter(filename, true))) { // true = режим добавления
             for (Bus bus : buses) {
-             writer.write(String.format("%d,%s,%d", 
+                writer.write(String.format("%d,%s,%d", 
                         bus.getNumber(), bus.getModel(), bus.getMileage()));
                 writer.newLine();
-
             }
             return true;
         } catch (IOException e) {
@@ -28,6 +26,7 @@ public class BusFileSaver {
         }
     }
 }
+
 
 
 
