@@ -2,7 +2,7 @@ package ;
 
 import model.Bus;
 import java.io.*;
-import java.util.BusList;
+import java.util.List;
 //готов к добавлению в main
 public class BusFileSaver {
     /**
@@ -11,13 +11,15 @@ public class BusFileSaver {
      * @param filename имя файла
      * @return true, если сохранение успешно
      */
-    public boolean appendToFile(BusList<Bus> buses, String filename) throws IOException {
+    public boolean appendToFile(List<Bus> buses, String filename) throws IOException {
         try (FileWriter fw = new FileWriter(filename, true);
              BufferedWriter bw = new BufferedWriter(fw)) {
 
             for (Bus bus : buses) {
-                bw.write(bus.toString());
-                bw.newLine();
+             writer.write(String.format("%d,%s,%d", 
+                        bus.getNumber(), bus.getModel(), bus.getMileage()));
+                writer.newLine();
+
             }
             return true;
         } catch (IOException e) {
@@ -26,6 +28,7 @@ public class BusFileSaver {
         }
     }
 }
+
 
 
 
