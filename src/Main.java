@@ -42,7 +42,7 @@ public class Main {
                     }
                     break;
                 case (6):
-                    saveMenu(buses);;
+                    saveDataMenu();
                     break;
                 case (7):
                     dummyFunction();
@@ -159,11 +159,26 @@ public class Main {
             }
         }
     }
-private static void saveMenu(List<Bus> buses) throws IOException {
-        System.out.print("Имя файла: ");
-        BusFileSaver.appendToFile(buses, scanner.next());
-        System.out.println("Сохранено!");
-}
+
+    static void saveDataMenu() {
+        while (true) {
+            System.out.println(Messages.SAVE_DATA_MENU.getMessage());
+            switch (inputProcessor.getInteger()) {
+                case (1):
+                    BusFileSaver.appendToFile(busList, true);
+                    return;
+                case (2):
+                    BusFileSaver.appendToFile(busList, false);
+                    return;
+                case (0):
+                    return;
+                default:
+                    System.out.println(Messages.DEFAULT_SWITCH_MESSAGE.getMessage());
+                    break;
+            }
+        }
+    }
+
     static void dummyFunction() {
         System.out.println("Пока еще не сделано.\n");
     }
