@@ -54,7 +54,7 @@ public class Bus implements Comparable<Bus> {
 
     @Override
     public String toString() {
-        return String.format("Bus{number='%s', model='%s', mileage=%d}", 
+        return String.format("Номер:\t%-12s\tМодель:\t%-16s\tПробег\t%d",
                 number, model, mileage);
     }
 
