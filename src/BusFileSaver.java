@@ -15,7 +15,7 @@ public class BusFileSaver {
        try (BufferedWriter writer = new BufferedWriter(
                 (new FileWriter(filename, true))) { // true = режим добавления
             for (Bus bus : buses) {
-                writer.write(String.format("%d,%s,%d", 
+                writer.write(String.format("%s,%s,%d", 
                         bus.getNumber(), bus.getModel(), bus.getMileage()));
                 writer.newLine();
             }
@@ -26,6 +26,7 @@ public class BusFileSaver {
         }
     }
 }
+
 
 
 
