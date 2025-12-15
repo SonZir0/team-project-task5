@@ -19,7 +19,7 @@ public class Main {
             switch (menuUserInput) {
                 case (1):
                     System.out.print("Размер коллекции: ");
-                    busList.setSize( inputProcessor.getPositiveInteger() );
+                    busList.setSize( inputProcessor.getNonNegativeInteger() );
                     break;
                 case (2):
                     setDataStrategyMenu();
@@ -125,7 +125,7 @@ public class Main {
                     return;
                 case (2):
                     System.out.print("Введите количество элементов(N): ");
-                    int N = inputProcessor.getPositiveInteger();
+                    int N = inputProcessor.getNonNegativeInteger();
                     dataGetter.getNObjects(N).ifPresentOrElse(
                             (resultList) ->
                                     checkSizeAndConfirm(resultList, N, (list) -> busList.addAll(list)),
