@@ -1,6 +1,6 @@
 package ;
 
-import model.Bus;
+import Bus;
 import java.io.*;
 import java.util.List;
 //готов к добавлению в main
@@ -28,6 +28,7 @@ public class BusFileSaver {
         }
     }
 }
+
 
 
 
