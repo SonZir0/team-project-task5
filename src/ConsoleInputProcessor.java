@@ -37,11 +37,11 @@ public class ConsoleInputProcessor implements Testable, AutoCloseable {
     }
 
     public Integer getNonNegativeInteger() {
-        return getIntGreaterThanN(-1, "Не корректный ввод. Пожалуйста, введите -ЦЕЛОЕ НЕОТРИЦАТЕЛЬНОЕ ЧИСЛО-");
+        return getIntGreaterThanN(-1, "Не корректный ввод. Пожалуйста, введите -ЦЕЛОЕ НЕОТРИЦАТЕЛЬНОЕ ЧИСЛО-\n");
     }
 
     public Integer getPositiveInteger() {
-        return getIntGreaterThanN(0, "Не корректный ввод. Пожалуйста, введите -ЦЕЛОЕ ПОЛОЖИТЕЛЬНОЕ ЧИСЛО-");
+        return getIntGreaterThanN(0, "Не корректный ввод. Пожалуйста, введите -ЦЕЛОЕ ПОЛОЖИТЕЛЬНОЕ ЧИСЛО-\n");
     }
 
     public Integer getIntGreaterThanN(int N, String messageOnIncorrectInput) {
@@ -49,7 +49,7 @@ public class ConsoleInputProcessor implements Testable, AutoCloseable {
             Optional<Integer> temp = tryToGetInteger();
             if (temp.isPresent() && temp.get() > N)
                 return temp.get();
-            System.out.println(messageOnIncorrectInput);
+            System.out.print(messageOnIncorrectInput);
         }
     }
 
