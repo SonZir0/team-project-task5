@@ -45,7 +45,7 @@ public class BusList extends AbstractList<Bus> {
 
         Bus[] objArr = collection.toArray(new Bus[0]);
         if (objArr.length > this.capacity - this.size)
-            this.setSize((int)Math.ceil((this.size + objArr.length) * 1.5));
+            this.setSize((this.size + objArr.length) << 1);
 
         System.arraycopy(objArr, 0, this.data, this.size, objArr.length);
         this.size += objArr.length;
