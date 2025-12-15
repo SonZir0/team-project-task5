@@ -45,7 +45,25 @@ public class Main {
                     saveDataMenu();
                     break;
                 case (7):
-                    dummyFunction();
+                    if (busList.isEmpty()) {
+                        System.out.println(Messages.COLLECTION_IS_EMPTY.getMessage());
+                    } else {
+                        try {
+                            System.out.print("Введите пробег N: ");
+                            int mileage = inputProcessor.getPositiveInteger();
+
+                            System.out.print("Введите количество потоков: ");
+                            int threads = inputProcessor.getPositiveInteger();
+
+                            int result = BusCounter.countByMileage(busList, mileage, threads);
+
+                            System.out.println(
+                                    "Количество автобусов с пробегом " + mileage + ": " + result
+                            );
+                        } catch (InterruptedException e) {
+                            System.err.println("Подсчёт был прерван");
+                        }
+                    }
                     break;
                 case (-1):
                     break;
