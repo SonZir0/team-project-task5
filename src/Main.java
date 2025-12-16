@@ -210,5 +210,6 @@ public class Main {
         new GetDataRandom().runAllTests();
         MergeSort.runAllTests();
         SortEvenFieldOnly.runAllTests();
+        BusFileSaver.runAllTests();
     }
 }
