@@ -7,13 +7,16 @@ public class BusFileSaver {
      * @return true, если сохранение успешно
      */
     public static boolean appendToFile(BusList buses, boolean toAppend) {
-       try (BufferedWriter writer = new BufferedWriter((new FileWriter("resources//savedCollection.txt", toAppend)))) { // true = режим добавления
+       return appendToFile(buses, "resources//savedCollection.txt", toAppend);
+    }
+
+    private static boolean appendToFile(BusList buses, String pathToFile, boolean toAppend) {
+        try (BufferedWriter writer = new BufferedWriter((new FileWriter(pathToFile, toAppend)))) { // true = режим добавления
             for (Bus bus : buses) {
                 writer.write(String.format("%-15s,%-20s,%d",
                         bus.getNumber(), bus.getModel(), bus.getMileage()));
                 writer.newLine();
             }
-            System.out.println("Сохранено!");
             return true;
         } catch (IOException e) {
             System.err.println("Ошибка при записи в файл: " + e.getMessage());

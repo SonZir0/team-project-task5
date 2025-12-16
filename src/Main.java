@@ -185,10 +185,12 @@ public class Main {
             System.out.println(Messages.SAVE_DATA_MENU.getMessage());
             switch (inputProcessor.getInteger()) {
                 case (1):
-                    BusFileSaver.appendToFile(busList, true);
+                    if (BusFileSaver.appendToFile(busList, true))
+                        System.out.println("Сохранено");
                     return;
                 case (2):
-                    BusFileSaver.appendToFile(busList, false);
+                    if (BusFileSaver.appendToFile(busList, false))
+                        System.out.println("Сохранено");
                     return;
                 case (0):
                     return;
