@@ -18,7 +18,7 @@ public class SortEvenFieldOnly {
     }
 
     public static void runAllTests() {
-        System.out.println("\nЗапускаем тесты в классе SortEvenFieldOnly:");
+        System.out.println("Запускаем тесты в классе SortEvenFieldOnly:");
         System.out.println("\tТест неизменности позиций элементов с нечетными полями: " + SortEvenFieldOnly.Tests.testOddElemPos());
     }
 

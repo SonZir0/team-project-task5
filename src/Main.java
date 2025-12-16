@@ -13,6 +13,8 @@ public class Main {
         inputProcessor = new ConsoleInputProcessor();
         Integer menuUserInput = 0;
 
+        runAllTests();
+
         while (menuUserInput != -1) {
             System.out.println(Messages.MAIN_MENU_MESSAGE.getMessage());
             menuUserInput = inputProcessor.getInteger();
@@ -195,5 +197,12 @@ public class Main {
                     break;
             }
         }
+    }
+
+    public static void runAllTests() {
+        StringValidator.runAllTests();
+        inputProcessor.runAllTests();
+        MergeSort.runAllTests();
+        SortEvenFieldOnly.runAllTests();
     }
 }
