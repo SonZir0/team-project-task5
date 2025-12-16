@@ -4,7 +4,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class GetDataFromInput implements GetData, Testable {
+public class GetDataFromInput implements GetData {
     public final ConsoleInputProcessor inputProcessor;
 
     public GetDataFromInput(ConsoleInputProcessor inputProcessor) {
@@ -48,8 +48,7 @@ public class GetDataFromInput implements GetData, Testable {
                 .collect(Collectors.toCollection(BusList::new)));
     }
 
-    @Override
-    public void runAllTests() {
+    public static void runAllTests() {
         System.out.println("\nЗапускаем тесты в классе GetDataFromInput:");
         System.out.printf(
                 Messages.TEST_RESULT_FORMAT_STRING.getMessage(),

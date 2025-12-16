@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
-public class GetDataFromFile implements GetData, Testable {
+public class GetDataFromFile implements GetData {
     private String filePath;
 
     GetDataFromFile(String filePath) {
@@ -82,8 +82,7 @@ public class GetDataFromFile implements GetData, Testable {
         return parts.length == 3; // Проверка на количество элементов в строке (модель, номер, пробег = 3)
     }
 
-    @Override
-    public void runAllTests() {
+    public static void runAllTests() {
         System.out.println("\nЗапускаем тесты в классе GetDataFromFile:");
         System.out.printf(
                 Messages.TEST_RESULT_FORMAT_STRING.getMessage(),

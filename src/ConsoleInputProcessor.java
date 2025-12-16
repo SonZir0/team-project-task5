@@ -7,7 +7,7 @@ import java.util.Optional;
  * При не корректном инпуте со стороны пользователя, все методы должны выводить сообщение о типе ожидаемого инпута.
  * По завершению работы требуется вызвать close().
  */
-public class ConsoleInputProcessor implements Testable, AutoCloseable {
+public class ConsoleInputProcessor implements AutoCloseable {
 
     private final BufferedReader bf;
 
@@ -75,8 +75,8 @@ public class ConsoleInputProcessor implements Testable, AutoCloseable {
             throw new RuntimeException("Не удалось закрыть BufferedReader в ConsoleInputProcessor");
         }
     }
-    @Override
-    public void runAllTests() {
+
+    public static void runAllTests() {
         System.out.println("\nЗапускаем тесты в классе ConsoleInputProcessor:");
         System.out.printf(
                 Messages.TEST_RESULT_FORMAT_STRING.getMessage(),
