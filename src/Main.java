@@ -212,5 +212,6 @@ public class Main {
         MergeSort.runAllTests();
         SortEvenFieldOnly.runAllTests();
         BusFileSaver.runAllTests();
+        BusCounter.runAllTests();
     }
 }
