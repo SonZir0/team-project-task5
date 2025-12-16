@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
-public class GetDataFromFile implements GetData {
+public class GetDataFromFile implements GetData, Testable {
     private String filePath;
 
     GetDataFromFile(String filePath) {
@@ -80,6 +80,36 @@ public class GetDataFromFile implements GetData {
 
     private static boolean isValidFormat(String[] parts) {
         return parts.length == 3; // Проверка на количество элементов в строке (модель, номер, пробег = 3)
+    }
+
+    @Override
+    public void runAllTests() {
+        System.out.println("Запускаем тесты в классе GetDataFromFile:");
+        System.out.println("\tТест 1-го загруженного объекта: " + GetDataFromFile.Tests.getOneObject());
+        System.out.println("\tТест получения листа из N элементов: " + GetDataFromFile.Tests.getNObjects());
+    }
+
+    static class Tests {
+        static boolean getOneObject() {
+            Bus temp = new GetDataFromFile("resources//correctFile.txt").getOneObject().get();
+            Bus temp2 = new GetDataFromFile("resources//emptyFile.txt").getOneObject().orElse(null);
+            return temp.getNumber().equals("124К-5678A") &&
+                    temp.getModel().equals("RF-12345678") &&
+                    temp.getMileage() == 1000 &&
+                    temp2 == null;
+        }
+
+        static boolean getNObjects() {
+            GetDataFromFile dataFromFile = new GetDataFromFile("resources//correctFile.txt");
+            BusList temp = dataFromFile.getNObjects(5).get();
+            BusList temp2 = dataFromFile.getNObjects(0).get();
+            BusList temp3 = dataFromFile.getNObjects(101).get();
+            BusList temp4 = new GetDataFromFile("resources//emptyFile.txt").getNObjects(10).get();
+            return temp.size() == 5 &&
+                    temp2.isEmpty() &&
+                    temp3.size() == 20 &&
+                    temp4.isEmpty();
+        }
     }
 }
 
