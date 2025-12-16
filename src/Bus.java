@@ -78,8 +78,11 @@ public class Bus implements Comparable<Bus>, Testable {
 
     @Override
     public void runAllTests() {
-        System.out.println("Запускаем тесты в классе Bus:");
-        System.out.println("\tТест Bus.Builder: " + Bus.Tests.testBuilder());
+        System.out.println("\nЗапускаем тесты в классе Bus:");
+        System.out.printf(
+                Messages.TEST_RESULT_FORMAT_STRING.getMessage(),
+                "Тест Bus.Builder:",
+                Bus.Tests.testBuilder());
     }
 
     static class Tests {

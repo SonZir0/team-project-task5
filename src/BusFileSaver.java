@@ -25,8 +25,11 @@ public class BusFileSaver {
     }
 
     public static void runAllTests() {
-        System.out.println("Запускаем тесты в классе BusFileSaver:");
-        System.out.println("\tТест данных в сохраненном файле: " + BusFileSaver.Tests.testSavedData());
+        System.out.println("\nЗапускаем тесты в классе BusFileSaver:");
+        System.out.printf(
+                Messages.TEST_RESULT_FORMAT_STRING.getMessage(),
+                "Тест данных в сохраненном файле:",
+                BusFileSaver.Tests.testSavedData());
     }
 
     static class Tests {

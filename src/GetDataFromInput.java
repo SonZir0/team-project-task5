@@ -50,9 +50,15 @@ public class GetDataFromInput implements GetData, Testable {
 
     @Override
     public void runAllTests() {
-        System.out.println("Запускаем тесты в классе GetDataFromInput:");
-        System.out.println("\tТест получения одного объекта: " + GetDataFromInput.Tests.testOutputObject());
-        System.out.println("\tТест получения листа из N элементов: " + GetDataFromInput.Tests.testOutputList());
+        System.out.println("\nЗапускаем тесты в классе GetDataFromInput:");
+        System.out.printf(
+                Messages.TEST_RESULT_FORMAT_STRING.getMessage(),
+                "Тест получения одного объекта:",
+                GetDataFromInput.Tests.testOutputObject());
+        System.out.printf(
+                Messages.TEST_RESULT_FORMAT_STRING.getMessage(),
+                "Тест получения листа из N элементов:",
+                GetDataFromInput.Tests.testOutputList());
     }
 
     static class Tests {

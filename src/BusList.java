@@ -95,11 +95,23 @@ public class BusList extends AbstractList<Bus> implements Testable {
 
     @Override
     public void runAllTests() {
-        System.out.println("Запускаем тесты в классе BusList:");
-        System.out.println("\tТест добавления 1-го элемента: " + BusList.Tests.testAddOneObject());
-        System.out.println("\tТест метода setSize (установление capacity): " + BusList.Tests.testSetSize());
-        System.out.println("\tТест авторасширения capacity: " + BusList.Tests.testAutoResize());
-        System.out.println("\tТест добавления объектов Bus из другой коллекции: " + BusList.Tests.testAddAll());
+        System.out.println("\nЗапускаем тесты в классе BusList:");
+        System.out.printf(
+                Messages.TEST_RESULT_FORMAT_STRING.getMessage(),
+                "Тест добавления 1-го элемента:",
+                BusList.Tests.testAddOneObject());
+        System.out.printf(
+                Messages.TEST_RESULT_FORMAT_STRING.getMessage(),
+                "Тест метода setSize (установление capacity):",
+                BusList.Tests.testSetSize());
+        System.out.printf(
+                Messages.TEST_RESULT_FORMAT_STRING.getMessage(),
+                "Тест авторасширения capacity:",
+                BusList.Tests.testAutoResize());
+        System.out.printf(
+                Messages.TEST_RESULT_FORMAT_STRING.getMessage(),
+                "Тест добавления объектов Bus из другой коллекции:",
+                BusList.Tests.testAddAll());
     }
 
     static class Tests {

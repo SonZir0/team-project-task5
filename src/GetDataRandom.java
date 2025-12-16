@@ -43,9 +43,15 @@ public class GetDataRandom implements GetData, Testable {
 
     @Override
     public void runAllTests() {
-        System.out.println("Запускаем тесты в классе GetDataRandom:");
-        System.out.println("\tТест полей полученного рандомного объекта: " + GetDataRandom.Tests.testRandObjFields());
-        System.out.println("\tТест получения листа из N элементов: " + GetDataRandom.Tests.testOutputList());
+        System.out.println("\nЗапускаем тесты в классе GetDataRandom:");
+        System.out.printf(
+                Messages.TEST_RESULT_FORMAT_STRING.getMessage(),
+                "Тест полей полученного рандомного объекта:",
+                GetDataRandom.Tests.testRandObjFields());
+        System.out.printf(
+                Messages.TEST_RESULT_FORMAT_STRING.getMessage(),
+                "Тест получения листа из N элементов:",
+                GetDataRandom.Tests.testOutputList());
     }
 
     static class Tests {

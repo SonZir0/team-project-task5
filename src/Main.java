@@ -213,5 +213,6 @@ public class Main {
         SortEvenFieldOnly.runAllTests();
         BusFileSaver.runAllTests();
         BusCounter.runAllTests();
+        System.out.print("\n\n\n");
     }
 }

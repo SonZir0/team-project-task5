@@ -34,8 +34,11 @@ public class BusCounter {
     }
 
     public static void runAllTests() {
-        System.out.println("Запускаем тесты в классе BusCounter:");
-        System.out.println("\tТест метода подсчета: " + BusCounter.Tests.testCountByMileage());
+        System.out.println("\nЗапускаем тесты в классе BusCounter:");
+        System.out.printf(
+                Messages.TEST_RESULT_FORMAT_STRING.getMessage(),
+                "Тест метода подсчета:",
+                BusCounter.Tests.testCountByMileage());
     }
 
     static class Tests {

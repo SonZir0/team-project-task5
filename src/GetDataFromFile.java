@@ -84,9 +84,15 @@ public class GetDataFromFile implements GetData, Testable {
 
     @Override
     public void runAllTests() {
-        System.out.println("Запускаем тесты в классе GetDataFromFile:");
-        System.out.println("\tТест 1-го загруженного объекта: " + GetDataFromFile.Tests.getOneObject());
-        System.out.println("\tТест получения листа из N элементов: " + GetDataFromFile.Tests.getNObjects());
+        System.out.println("\nЗапускаем тесты в классе GetDataFromFile:");
+        System.out.printf(
+                Messages.TEST_RESULT_FORMAT_STRING.getMessage(),
+                "Тест 1-го загруженного объекта:",
+                GetDataFromFile.Tests.getOneObject());
+        System.out.printf(
+                Messages.TEST_RESULT_FORMAT_STRING.getMessage(),
+                "Тест получения листа из N элементов:",
+                GetDataFromFile.Tests.getNObjects());
     }
 
     static class Tests {

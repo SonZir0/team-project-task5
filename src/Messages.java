@@ -52,7 +52,8 @@ public enum Messages {
     GET_DATA_NULL_RESULT("Не удалось получить объекты из указанного источника. Отмена..."),
     DEFAULT_SWITCH_MESSAGE("Такого варианта нет, попробуйте еще раз.\n"),
     NULL_REFERENCE_AS_ARGUMENT("Ошибка: вместо листа для сортировки получили null"),
-    BUS_LIST_OUT_OF_BOUNDS("Запрашиваемый индекс выходит за фактический размер массива");
+    BUS_LIST_OUT_OF_BOUNDS("Запрашиваемый индекс выходит за фактический размер массива"),
+    TEST_RESULT_FORMAT_STRING("\t%-57s\t%b\n");
 
     private final String message;
 
