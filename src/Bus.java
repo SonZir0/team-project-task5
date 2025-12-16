@@ -1,6 +1,6 @@
 import java.util.Objects;
 
-public class Bus implements Comparable<Bus>, Testable {
+public class Bus implements Comparable<Bus> {
     private final String number;
     private final String model;
     private final int mileage;
@@ -76,8 +76,7 @@ public class Bus implements Comparable<Bus>, Testable {
         return Objects.hash(this.number, this.model, this.mileage);
     }
 
-    @Override
-    public void runAllTests() {
+    public static void runAllTests() {
         System.out.println("\nЗапускаем тесты в классе Bus:");
         System.out.printf(
                 Messages.TEST_RESULT_FORMAT_STRING.getMessage(),

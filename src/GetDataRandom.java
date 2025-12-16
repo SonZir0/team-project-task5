@@ -1,7 +1,7 @@
 import java.util.Optional;
 import java.util.Random;
 
-public class GetDataRandom implements GetData, Testable {
+public class GetDataRandom implements GetData {
 
     private final Random random = new Random();
 
@@ -41,8 +41,7 @@ public class GetDataRandom implements GetData, Testable {
         return Optional.of(list);
     }
 
-    @Override
-    public void runAllTests() {
+    public static void runAllTests() {
         System.out.println("\nЗапускаем тесты в классе GetDataRandom:");
         System.out.printf(
                 Messages.TEST_RESULT_FORMAT_STRING.getMessage(),

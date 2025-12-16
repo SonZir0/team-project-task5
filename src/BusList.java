@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class BusList extends AbstractList<Bus> implements Testable {
+public class BusList extends AbstractList<Bus> {
 
     private final int INITIAL_CAPACITY = 10;
     private int capacity = INITIAL_CAPACITY;
@@ -93,8 +93,7 @@ public class BusList extends AbstractList<Bus> implements Testable {
         return sb.toString();
     }
 
-    @Override
-    public void runAllTests() {
+    public static void runAllTests() {
         System.out.println("\nЗапускаем тесты в классе BusList:");
         System.out.printf(
                 Messages.TEST_RESULT_FORMAT_STRING.getMessage(),
