@@ -13,6 +13,8 @@ public class Main {
         inputProcessor = new ConsoleInputProcessor();
         Integer menuUserInput = 0;
 
+        runAllTests();
+
         while (menuUserInput != -1) {
             System.out.println(Messages.MAIN_MENU_MESSAGE.getMessage());
             menuUserInput = inputProcessor.getInteger();
@@ -183,10 +185,12 @@ public class Main {
             System.out.println(Messages.SAVE_DATA_MENU.getMessage());
             switch (inputProcessor.getInteger()) {
                 case (1):
-                    BusFileSaver.appendToFile(busList, true);
+                    if (BusFileSaver.appendToFile(busList, true))
+                        System.out.println("Сохранено");
                     return;
                 case (2):
-                    BusFileSaver.appendToFile(busList, false);
+                    if (BusFileSaver.appendToFile(busList, false))
+                        System.out.println("Сохранено");
                     return;
                 case (0):
                     return;
@@ -195,5 +199,20 @@ public class Main {
                     break;
             }
         }
+    }
+
+    public static void runAllTests() {
+        StringValidator.runAllTests();
+        inputProcessor.runAllTests();
+        new Bus.Builder().build().runAllTests();
+        busList.runAllTests();
+        new GetDataFromInput(inputProcessor).runAllTests();
+        new GetDataFromFile("resources//correctFile.txt").runAllTests();
+        new GetDataRandom().runAllTests();
+        MergeSort.runAllTests();
+        SortEvenFieldOnly.runAllTests();
+        BusFileSaver.runAllTests();
+        BusCounter.runAllTests();
+        System.out.print("\n\n\n");
     }
 }

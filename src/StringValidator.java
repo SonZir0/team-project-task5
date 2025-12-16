@@ -17,9 +17,13 @@ public class StringValidator {
     }
 
     public static void runAllTests() {
-        System.out.println("Запускаем тесты в классе InputValidator:");
-        System.out.println("\tТест валидатора непустой строку: " + Tests.testIsNonEmptyString());
-        System.out.println("\tТест валидатора интеджеров: " + Tests.testIsInteger());
+        System.out.println("\nЗапускаем тесты в классе InputValidator:");
+        System.out.printf(
+                Messages.TEST_RESULT_FORMAT_STRING.getMessage(),
+                "Тест валидатора непустой строку:", Tests.testIsNonEmptyString());
+        System.out.printf(
+                Messages.TEST_RESULT_FORMAT_STRING.getMessage(),
+                "Тест валидатора интеджеров:", Tests.testIsInteger());
     }
 
     static class Tests {

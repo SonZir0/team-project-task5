@@ -50,11 +50,15 @@ public class GetDataFromInput implements GetData, Testable {
 
     @Override
     public void runAllTests() {
-        System.out.println("Запускаем тесты в классе GetDataFromInput:");
-        System.out.println("\tТест получения одного объекта: " + GetDataFromInput.Tests.testOutputObject());
-        System.out.println("\tТест получения листа из N элементов: " + GetDataFromInput.Tests.testOutputList());
-        System.out.println("\tТест получения пустого листа при N = 0: " + GetDataFromInput.Tests.testNIsZero());
-
+        System.out.println("\nЗапускаем тесты в классе GetDataFromInput:");
+        System.out.printf(
+                Messages.TEST_RESULT_FORMAT_STRING.getMessage(),
+                "Тест получения одного объекта:",
+                GetDataFromInput.Tests.testOutputObject());
+        System.out.printf(
+                Messages.TEST_RESULT_FORMAT_STRING.getMessage(),
+                "Тест получения листа из N элементов:",
+                GetDataFromInput.Tests.testOutputList());
     }
 
     static class Tests {
@@ -97,25 +101,13 @@ public class GetDataFromInput implements GetData, Testable {
             try (ConsoleInputProcessor cip = new ConsoleInputProcessor(is)) {
                 GetDataFromInput dataFromInput = new GetDataFromInput(cip);
                 BusList temp = dataFromInput.getNObjects(4, true).get();
+                BusList temp2 = dataFromInput.getNObjects(0, true).get();
                 // все идущие подряд пустые строки будут пропущены за один вызов
                 return temp.size() == 4 &&
                         temp.get(1).getNumber().equals("Mileage?") &&
                         temp.get(2).getModel().equals("00000") &&
-                        temp.getLast().getMileage() == 51;
-            }
-        }
-
-        static boolean testNIsZero() {
-            String testData = """
-                    517K
-                    \t    RF-102-\t
-                    +1000
-                    Success?""";
-            InputStream is = new ByteArrayInputStream(testData.getBytes());
-            try (ConsoleInputProcessor cip = new ConsoleInputProcessor(is)) {
-                GetDataFromInput dataFromInput = new GetDataFromInput(cip);
-                BusList temp = dataFromInput.getNObjects(0, true).get();
-                return temp.isEmpty();
+                        temp.getLast().getMileage() == 51 &&
+                        temp2.isEmpty();
             }
         }
     }

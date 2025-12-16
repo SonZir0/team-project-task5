@@ -32,4 +32,48 @@ public class BusCounter {
 
         return total;
     }
+
+    public static void runAllTests() {
+        System.out.println("\nЗапускаем тесты в классе BusCounter:");
+        System.out.printf(
+                Messages.TEST_RESULT_FORMAT_STRING.getMessage(),
+                "Тест метода подсчета:",
+                BusCounter.Tests.testCountByMileage());
+    }
+
+    static class Tests {
+        static boolean testCountByMileage() {
+            Bus bus1 = new Bus.Builder().setNumber("25A")
+                    .setModel("Whatever").setMileage(9999).build();
+            Bus bus2 = new Bus.Builder().setNumber("25A")
+                    .setModel("Whatever").setMileage(0).build();
+            Bus bus3 = new Bus.Builder().setNumber("25A")
+                    .setModel("Whatever").setMileage(25).build();
+            Bus bus4 = new Bus.Builder().setNumber("25A")
+                    .setModel("Whatever").setMileage(19).build();
+            Bus bus5 = new Bus.Builder().setNumber("25A")
+                    .setModel("Whatever").setMileage(11).build();
+            BusList tempList = new BusList();
+            tempList.add(bus1);
+            tempList.add(bus2);
+            tempList.add(bus3);
+            tempList.add(bus1);
+            tempList.add(bus5);
+            tempList.add(bus4);
+            tempList.add(bus3);
+            tempList.add(bus2);
+            tempList.add(bus1);
+            try {
+            return countByMileage(tempList, 9999, 4) == 3 &&
+                    countByMileage(tempList, 0, 4) == 2 &&
+                    countByMileage(tempList, 25, 4) == 2 &&
+                    countByMileage(tempList, 19, 4) == 1 &&
+                    countByMileage(tempList, 11, 4) == 1 &&
+                    countByMileage(tempList, 1520, 4) == 0;
+            } catch (InterruptedException e) {
+                System.err.println("Тест метода подсчета был прерван!");
+                return false;
+            }
+        }
+    }
 }

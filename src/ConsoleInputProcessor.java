@@ -77,10 +77,19 @@ public class ConsoleInputProcessor implements Testable, AutoCloseable {
     }
     @Override
     public void runAllTests() {
-        System.out.println("Запускаем тесты в классе ConsoleInputProcessor:");
-        System.out.println("\tТест метода получения непустой строки: " + ConsoleInputProcessor.Tests.testGetNonNullString());
-        System.out.println("\tТест метода получения целого числа: " + ConsoleInputProcessor.Tests.testTryToGetInteger());
-        System.out.println("\tТест метода получения целого числа больше N: " + ConsoleInputProcessor.Tests.testGetIntGreaterThanN());
+        System.out.println("\nЗапускаем тесты в классе ConsoleInputProcessor:");
+        System.out.printf(
+                Messages.TEST_RESULT_FORMAT_STRING.getMessage(),
+                "Тест метода получения непустой строки:",
+                ConsoleInputProcessor.Tests.testGetNonNullString());
+        System.out.printf(
+                Messages.TEST_RESULT_FORMAT_STRING.getMessage(),
+                "Тест метода получения целого числа:",
+                ConsoleInputProcessor.Tests.testTryToGetInteger());
+        System.out.printf(
+                Messages.TEST_RESULT_FORMAT_STRING.getMessage(),
+                "Тест метода получения целого числа больше N:",
+                ConsoleInputProcessor.Tests.testGetIntGreaterThanN());
     }
 
     static class Tests {

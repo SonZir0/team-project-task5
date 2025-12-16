@@ -50,9 +50,15 @@ public class MergeSort {
     }
 
     public static void runAllTests() {
-        System.out.println("Запускаем тесты в классе MergeSort:");
-        System.out.println("\tТест правильности сортировки: " + Tests.testSorting());
-        System.out.println("\tТест стабильности сортировки: " + Tests.testStability());
+        System.out.println("\nЗапускаем тесты в классе MergeSort:");
+        System.out.printf(
+                Messages.TEST_RESULT_FORMAT_STRING.getMessage(),
+                "Тест правильности сортировки:",
+                Tests.testSorting());
+        System.out.printf(
+                Messages.TEST_RESULT_FORMAT_STRING.getMessage(),
+                "Тест стабильности сортировки:",
+                Tests.testStability());
     }
 
     static class Tests {

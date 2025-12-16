@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class BusList extends AbstractList<Bus> {
+public class BusList extends AbstractList<Bus> implements Testable {
 
     private final int INITIAL_CAPACITY = 10;
     private int capacity = INITIAL_CAPACITY;
@@ -91,5 +91,89 @@ public class BusList extends AbstractList<Bus> {
             innerSB.setLength(0);
         }
         return sb.toString();
+    }
+
+    @Override
+    public void runAllTests() {
+        System.out.println("\nЗапускаем тесты в классе BusList:");
+        System.out.printf(
+                Messages.TEST_RESULT_FORMAT_STRING.getMessage(),
+                "Тест добавления 1-го элемента:",
+                BusList.Tests.testAddOneObject());
+        System.out.printf(
+                Messages.TEST_RESULT_FORMAT_STRING.getMessage(),
+                "Тест метода setSize (установление capacity):",
+                BusList.Tests.testSetSize());
+        System.out.printf(
+                Messages.TEST_RESULT_FORMAT_STRING.getMessage(),
+                "Тест авторасширения capacity:",
+                BusList.Tests.testAutoResize());
+        System.out.printf(
+                Messages.TEST_RESULT_FORMAT_STRING.getMessage(),
+                "Тест добавления объектов Bus из другой коллекции:",
+                BusList.Tests.testAddAll());
+    }
+
+    static class Tests {
+        static Bus testBus = new Bus.Builder()
+                .setNumber("12K")
+                .setModel("Something")
+                .setMileage(0)
+                .build();
+
+        static boolean testAddOneObject() {
+            BusList temp = new BusList();
+            return temp.size == 0 && temp.capacity == 10 &&
+                    temp.add(testBus) &&
+                    temp.add(testBus) &&
+                    temp.size == 2 && temp.capacity == 10;
+        }
+
+        static boolean testSetSize() {
+            BusList temp = new BusList();
+            temp.add(testBus);
+            temp.add(testBus);
+            temp.add(testBus);
+            if (temp.capacity != 10 && temp.size != 3) return false;
+            temp.setSize(100);
+            if (temp.capacity != 100 && temp.size != 3) return false;
+            temp.setSize(2);
+            if (temp.capacity != 2 && temp.size != 2) return false;
+            temp.setSize(0);
+            return (temp.capacity == 0 && temp.size == 0);
+        }
+
+        static boolean testAutoResize() {
+            BusList temp = new BusList();
+            temp.setSize(1);
+            temp.add(testBus);
+            if (temp.capacity != 1 && temp.size != 1) return false;
+            temp.add(testBus);
+            if (temp.capacity != 2 && temp.size != 2) return false;
+            temp.add(testBus);
+            if (temp.capacity != 4 && temp.size != 3) return false;
+            temp.add(testBus);
+            temp.add(testBus);
+            if (temp.capacity != 8 && temp.size != 5) return false;
+            temp.setSize(0);
+            temp.add(testBus);
+            return (temp.capacity == 1 && temp.size == 1);
+        }
+
+        static boolean testAddAll() {
+            BusList temp = new BusList();
+            BusList secondList = new BusList();
+            temp.add(testBus);                  temp.add(testBus);
+            temp.add(testBus);                  temp.add(testBus);
+            secondList.add(testBus);            secondList.add(testBus);
+            secondList.add(testBus);            secondList.add(testBus);
+
+            temp.addAll(secondList);
+            secondList.addAll(temp);
+            return temp.size == 8 &&
+                    temp.capacity == 10 &&
+                    secondList.size == 12 &&
+                    secondList.capacity == 24;
+        }
     }
 }
