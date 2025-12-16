@@ -202,6 +202,7 @@ public class Main {
     public static void runAllTests() {
         StringValidator.runAllTests();
         inputProcessor.runAllTests();
+        new GetDataRandom().runAllTests();
         MergeSort.runAllTests();
         SortEvenFieldOnly.runAllTests();
     }
