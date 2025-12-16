@@ -204,6 +204,7 @@ public class Main {
     public static void runAllTests() {
         StringValidator.runAllTests();
         inputProcessor.runAllTests();
+        new Bus.Builder().build().runAllTests();
         busList.runAllTests();
         new GetDataFromInput(inputProcessor).runAllTests();
         new GetDataFromFile("resources//correctFile.txt").runAllTests();

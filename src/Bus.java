@@ -1,6 +1,6 @@
 import java.util.Objects;
 
-public class Bus implements Comparable<Bus> {
+public class Bus implements Comparable<Bus>, Testable {
     private final String number;
     private final String model;
     private final int mileage;
@@ -74,5 +74,27 @@ public class Bus implements Comparable<Bus> {
     @Override
     public int hashCode() {
         return Objects.hash(this.number, this.model, this.mileage);
+    }
+
+    @Override
+    public void runAllTests() {
+        System.out.println("Запускаем тесты в классе Bus:");
+        System.out.println("\tТест Bus.Builder: " + Bus.Tests.testBuilder());
+    }
+
+    static class Tests {
+        static boolean testBuilder() {
+            String number = "12";
+            String model = "Something";
+            int mileage = 9999;
+            Bus bus = new Bus.Builder()
+                    .setNumber(number)
+                    .setModel(model)
+                    .setMileage(mileage)
+                    .build();
+            return bus.getNumber().equals(number) &&
+                    bus.getModel().equals(model) &&
+                    bus.getMileage() == mileage;
+        }
     }
 }
